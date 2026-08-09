@@ -1,0 +1,51 @@
+# Global memory index
+
+Shared across all projects and all agent tools (Claude, Codex, Copilot).
+One file per fact; see individual files for full content.
+
+- [daemon_mode_display_detection.md](daemon_mode_display_detection.md) — packages that auto-detect graphical/display capability at load time get it wrong under emacs --daemon, since no frame exists yet when they load — check for an explicit \"server mode\" override before assuming a display-related bug is something else
+- [elpaca_async_gotcha.md](elpaca_async_gotcha.md) — elpaca (this project's package manager) installs/activates packages asynchronously — code right after a use-package block, or even inside another package's own :config, can run before dependencies are actually ready
+- [feedback_approach.md](feedback_approach.md) — Preferences and corrections the user has given about how to work
+- [feedback_astro_webhome_iteration_style.md](feedback_astro_webhome_iteration_style.md) — How Bojan directs visual CSS tweaks on astro-webhome — exact pixel values, rapid iteration, expects literal application
+- [feedback_codeberg_pushes.md](feedback_codeberg_pushes.md) — User wants to create Codeberg repos and push/authenticate themselves, not have Claude do it
+- [feedback_credit_palette_sources.md](feedback_credit_palette_sources.md) — Always verify licensing and credit the original author when porting a third-party color palette
+- [feedback_git-security-discipline.md](feedback_git-security-discipline.md) — User's standard git/file-safety rules never auto-git, confirm everything, never write secrets to a file in the repo
+- [feedback_pkgbuild_pkgrel.md](feedback_pkgbuild_pkgrel.md) — Bump pkgrel (not pkgver) in Build-arch/PKGBUILD after syncing new upstream rofi commits
+- [feedback-preferences.md](feedback-preferences.md) — How this user likes to work and communicate
+- [feedback_session-workflow.md](feedback_session-workflow.md) — User's standard cross-project convention CLAUDE.md + memory/PROJECT.md, 'start session' / 'end session' trigger phrases
+- [feedback_session_workflow.md](feedback_session_workflow.md) — User's \"start session\" / \"end session\" convention for this project
+- [feedback_testing-phase-no-live-touch.md](feedback_testing-phase-no-live-touch.md) — User's rule for R&D/porting projects never touch live system files outside the project dir while still testing, no matter how explicit the request sounds
+- [feedback_toml_over_json.md](feedback_toml_over_json.md) — Prefer TOML over JSON for hand-edited config/preset files this user maintains
+- [feedback_verb-matches-action-scope.md](feedback_verb-matches-action-scope.md) — In a batch of per-item instructions, match the verb per item — \"diff it\"/\"compare it\"/\"check it out\" means show findings only; \"do it\"/\"implement\"/\"port it\" means actually apply changes.
+- [feedback-working-style.md](feedback-working-style.md) — How the user prefers the agent to work — explain first, then act; concise answers; confirm before file changes
+- [general_el_keymap_shorthand.md](general_el_keymap_shorthand.md) — general.el's `(COMMAND :wk \"desc\")` shorthand only works for commands — binding an existing keymap symbol as a prefix needs the explicit `:keymap` key instead
+- [global-working-agreement.md](global-working-agreement.md) — The confirm-first policy governing Claude, Codex, and Copilot in the unified ~/.agents setup, plus session start/end git rules
+- [native_comp_warning_hang.md](native_comp_warning_hang.md) — emacsclient -c hanging forever (\"Server not responding\") can be caused by native-comp's warning-reporting path bogging down under a large volume of harmless compiler warnings, not an actual infinite loop in your config
+- [project-archboki.md](project-archboki.md) — archboki-bash-improved — improving boki's bash config by comparing with erik and chris reference configs, goal is multi-distro portability
+- [project_archboki_themes.md](project_archboki_themes.md) — archboki-emacs-themes repo architecture, theme list, and current session state
+- [project-archknife-changes-session1.md](project-archknife-changes-session1.md) — All changes made to archknife in the first working session (2026-06-14)
+- [project-archknife.md](project-archknife.md) — What archknife is, its structure, and the work done on it
+- [project_astro_webhome_keycap_buttons.md](project_astro_webhome_keycap_buttons.md) — Keycap-style button redesign for .link-item/.service-button/.search-btn — current state and how it was built
+- [project_astro_webhome_overview.md](project_astro_webhome_overview.md) — What astro-webhome is and its current structure (Astro bookmark dashboard, Everforest theme, two themes, font toggle)
+- [project_categories_fork.md](project_categories_fork.md) — This repo is bojanstrkovski-21's fork of rofi with a custom drun \"categories\" feature, periodically synced from upstream davatorium/rofi
+- [project_celestial-theme-builder.md](project_celestial-theme-builder.md) — Python tool to generate full desktop theme variants (GTK/Cinnamon/GNOME Shell/Kvantum/xfwm4) for multiple base themes (Celestial, Qogir, Arc, Colloid) from a couple of input hex colors
+- [project-classes.md](project-classes.md) — Class naming convention and seeded data in the DB
+- [project-db-path.md](project-db-path.md) — DB_PATH must be absolute — relative path caused silent wrong-database bugs
+- [project_doom_vs_spacemacs.md](project_doom_vs_spacemacs.md) — Repo purpose and status for archboki-doom-emacs-project (Doom Emacs vs Spacemacs comparison)
+- [project_dwm-quickshell.md](project_dwm-quickshell.md) — dwm-quickshell project — parent dir wrapping a ChrisTitusTech dwm fork + Quickshell shell layer
+- [project_gui_status.md](project_gui_status.md) — Current development state of the arch-boki-post-install GUI tool — what's done, what's pending
+- [project-import-export.md](project-import-export.md) — Student Excel import/export feature — fields, routes, normalization
+- [project-kniga-za-posta.md](project-kniga-za-posta.md) — kniga-za-posta — postal package log web app (Flask + SQLite), built via Copilot/session-defaults, not currently tracked elsewhere
+- [project-ministries.md](project-ministries.md) — Ministries admin feature — table, routes, how it connects to certificate form
+- [project-overview.md](project-overview.md) — What this project is, stack, directory roles, and current DB state
+- [project_overview.md](project_overview.md) — What arch-boki-logout is, its architecture, and where the key code lives
+- [reference_astro_webhome_visual_testing.md](reference_astro_webhome_visual_testing.md) — How to spin up a headless browser to screenshot-verify CSS/layout changes in this repo
+- [reference_codeberg_conventions.md](reference_codeberg_conventions.md) — User hosts personal projects on Codeberg (not GitHub) with a standard bootstrap pattern of scripts/CLAUDE.md/memory folder
+- [reference_doom_theme_loading.md](reference_doom_theme_loading.md) — Where the user's Doom Emacs config lives and how it loads/updates the archboki-emacs-themes package
+- [reference_project-templates.md](reference_project-templates.md) — Where the user's project-bootstrap conventions/templates live (links.txt precedent repos)
+- [reference_repo_setup.md](reference_repo_setup.md) — Where this project is hosted and how the user publishes changes
+- [rofi-appgrid-project.md](rofi-appgrid-project.md) — Status/pointer for the rofi-appgrid theme project — a rofi theme for a personal drun-categories fork
+- [session_log.md](session_log.md) — Running log of work sessions on arch-boki-logout, newest first
+- [user_desktop_environment.md](user_desktop_environment.md) — User's Linux desktop setup Arch, X11, custom WM, no full DE, GTK theming toolchain
+- [user-profile.md](user-profile.md) — Who the user is, their environment, and their tool stack — merged from multiple projects
+- [user_profile.md](user_profile.md) — Who the user is and how they work — background, preferences, project context
