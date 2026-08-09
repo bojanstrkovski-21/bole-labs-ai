@@ -73,6 +73,11 @@ user running `./set-git-cred.sh` then `./push.sh`).
 - `codex/config.toml` is linked as-is; it does not get titus-ai's
   per-machine `~/github` trust-entry rendering. Run titus-ai's own
   `scripts/install.sh` instead if that's needed.
+- ~~push.sh's branch-push check grepped the remote URL for "main"/"master"
+  instead of the actual branch~~ — fixed 2026-08-09: now uses
+  `git rev-parse --abbrev-ref HEAD`. Other repos using this same template
+  (~20 of them) likely carry the same latent bug — worth checking if their
+  remote URL doesn't literally contain "main"/"master".
 
 ## Acknowledgments
 

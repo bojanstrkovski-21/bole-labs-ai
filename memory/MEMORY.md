@@ -43,6 +43,7 @@ One file per fact; see individual files for full content.
 - [reference_doom_theme_loading.md](reference_doom_theme_loading.md) — Where the user's Doom Emacs config lives and how it loads/updates the archboki-emacs-themes package
 - [reference_project-templates.md](reference_project-templates.md) — Where the user's project-bootstrap conventions/templates live (links.txt precedent repos)
 - [reference_repo_setup.md](reference_repo_setup.md) — Where this project is hosted and how the user publishes changes
+- [reference-push-sh-branch-detection-bug.md](reference-push-sh-branch-detection-bug.md) — push.sh template's grep-on-URL check silently skips push when repo name lacks "main"/"master"
 - [rofi-appgrid-project.md](rofi-appgrid-project.md) — Status/pointer for the rofi-appgrid theme project — a rofi theme for a personal drun-categories fork
 - [session_log.md](session_log.md) — Running log of work sessions on arch-boki-logout, newest first
 - [user_desktop_environment.md](user_desktop_environment.md) — User's Linux desktop setup Arch, X11, custom WM, no full DE, GTK theming toolchain
