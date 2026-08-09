@@ -37,10 +37,19 @@ Full rationale in `memory/global-working-agreement.md`.
 
 ## Known follow-ups (not done in the initial merge)
 
-- Several near-duplicate memory facts exist under different filenames
-  (e.g. `feedback_session-workflow.md` vs `feedback_session_workflow.md`,
-  `user-profile.md` vs `user_profile.md`) — collisions on identical
-  filenames were merged, near-duplicates under different names were not.
+- ~~Near-duplicate memory facts under different filenames~~ — done
+  2026-08-09: audited every file's `name:` frontmatter for collisions (not
+  just filenames). Found and fixed three: `user-profile.md`/`user_profile.md`
+  (same person, merged into one), `project-overview.md`/`project_overview.md`
+  (different real projects wrongly sharing a generic slug — renamed to
+  `project-overview-svidetelstva.md` / `project-overview-arch-boki-logout.md`),
+  and `feedback_session-workflow.md`/`feedback_session_workflow.md`
+  (two historical variants of the same convention — consolidated into
+  `feedback-session-workflow.md`, updated to point at the current
+  `commands/` implementation). All `[[wiki-links]]` referencing the old
+  names were repointed. Remaining filename inconsistency (some older facts
+  use `snake_case.md`, newer ones use `kebab-case.md`) is cosmetic — no
+  further `name:` collisions exist.
 - No settings.json permission-layer enforcement (e.g. `ask` on `git push`)
   was added for Claude — the confirm-first rule is instruction-level only
   for now; wiring an actual permission gate is a good next step via the

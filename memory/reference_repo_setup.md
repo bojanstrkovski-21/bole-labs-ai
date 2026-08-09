@@ -22,4 +22,4 @@ tutorial template, user-authored repo otherwise):
   own manual publish flow; do not invoke it non-interactively or replace it
   with direct git commands unless asked.
 
-See [[project_overview]] for what the project itself does.
+See [[project-overview-arch-boki-logout]] for what the project itself does.

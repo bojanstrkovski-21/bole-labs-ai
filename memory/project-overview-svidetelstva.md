@@ -1,5 +1,5 @@
 ---
-name: project-overview
+name: project-overview-svidetelstva
 description: "What this project is, stack, directory roles, and current DB state"
 metadata: 
   node_type: memory

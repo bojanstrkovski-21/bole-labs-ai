@@ -12,8 +12,7 @@ One file per fact; see individual files for full content.
 - [feedback_git-security-discipline.md](feedback_git-security-discipline.md) — User's standard git/file-safety rules never auto-git, confirm everything, never write secrets to a file in the repo
 - [feedback_pkgbuild_pkgrel.md](feedback_pkgbuild_pkgrel.md) — Bump pkgrel (not pkgver) in Build-arch/PKGBUILD after syncing new upstream rofi commits
 - [feedback-preferences.md](feedback-preferences.md) — How this user likes to work and communicate
-- [feedback_session-workflow.md](feedback_session-workflow.md) — User's standard cross-project convention CLAUDE.md + memory/PROJECT.md, 'start session' / 'end session' trigger phrases
-- [feedback_session_workflow.md](feedback_session_workflow.md) — User's \"start session\" / \"end session\" convention for this project
+- [feedback-session-workflow.md](feedback-session-workflow.md) — User's start-session/end-session convention — now implemented globally via ~/.agents/commands/
 - [feedback_testing-phase-no-live-touch.md](feedback_testing-phase-no-live-touch.md) — User's rule for R&D/porting projects never touch live system files outside the project dir while still testing, no matter how explicit the request sounds
 - [feedback_toml_over_json.md](feedback_toml_over_json.md) — Prefer TOML over JSON for hand-edited config/preset files this user maintains
 - [feedback_verb-matches-action-scope.md](feedback_verb-matches-action-scope.md) — In a batch of per-item instructions, match the verb per item — \"diff it\"/\"compare it\"/\"check it out\" means show findings only; \"do it\"/\"implement\"/\"port it\" means actually apply changes.
@@ -37,8 +36,8 @@ One file per fact; see individual files for full content.
 - [project-import-export.md](project-import-export.md) — Student Excel import/export feature — fields, routes, normalization
 - [project-kniga-za-posta.md](project-kniga-za-posta.md) — kniga-za-posta — postal package log web app (Flask + SQLite), built via Copilot/session-defaults, not currently tracked elsewhere
 - [project-ministries.md](project-ministries.md) — Ministries admin feature — table, routes, how it connects to certificate form
-- [project-overview.md](project-overview.md) — What this project is, stack, directory roles, and current DB state
-- [project_overview.md](project_overview.md) — What arch-boki-logout is, its architecture, and where the key code lives
+- [project-overview-arch-boki-logout.md](project-overview-arch-boki-logout.md) — What arch-boki-logout is, its architecture, and where the key code lives
+- [project-overview-svidetelstva.md](project-overview-svidetelstva.md) — What this project is, stack, directory roles, and current DB state
 - [reference_astro_webhome_visual_testing.md](reference_astro_webhome_visual_testing.md) — How to spin up a headless browser to screenshot-verify CSS/layout changes in this repo
 - [reference_codeberg_conventions.md](reference_codeberg_conventions.md) — User hosts personal projects on Codeberg (not GitHub) with a standard bootstrap pattern of scripts/CLAUDE.md/memory folder
 - [reference_doom_theme_loading.md](reference_doom_theme_loading.md) — Where the user's Doom Emacs config lives and how it loads/updates the archboki-emacs-themes package
@@ -48,4 +47,3 @@ One file per fact; see individual files for full content.
 - [session_log.md](session_log.md) — Running log of work sessions on arch-boki-logout, newest first
 - [user_desktop_environment.md](user_desktop_environment.md) — User's Linux desktop setup Arch, X11, custom WM, no full DE, GTK theming toolchain
 - [user-profile.md](user-profile.md) — Who the user is, their environment, and their tool stack — merged from multiple projects
-- [user_profile.md](user_profile.md) — Who the user is and how they work — background, preferences, project context

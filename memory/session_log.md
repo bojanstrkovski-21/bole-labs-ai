@@ -11,10 +11,10 @@ metadata:
 
 Set up the persistent memory system for this project: read through the full
 codebase (both Python scripts, shell wrappers, push/cred helper scripts,
-desktop entry, config skeletons) and wrote [[project_overview]],
-[[reference_repo_setup]], and [[feedback_session_workflow]]. Established the
+desktop entry, config skeletons) and wrote [[project-overview-arch-boki-logout]],
+[[reference_repo_setup]], and [[feedback-session-workflow]]. Established the
 "start session" / "end session" convention (see
-[[feedback_session_workflow]]) for re-orienting and logging work going
+[[feedback-session-workflow]]) for re-orienting and logging work going
 forward. No code changes made.
 
 Repo state at the time: branch `master`, clean working tree, latest commit

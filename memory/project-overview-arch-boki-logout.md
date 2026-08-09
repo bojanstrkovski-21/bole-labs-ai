@@ -1,5 +1,5 @@
 ---
-name: project-overview
+name: project-overview-arch-boki-logout
 description: "What arch-boki-logout is, its architecture, and where the key code lives"
 metadata: 
   node_type: memory

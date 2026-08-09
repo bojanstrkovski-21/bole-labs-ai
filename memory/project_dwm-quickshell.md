@@ -61,7 +61,7 @@ crashed Quickshell once along the way. Final popup background
 than `Shape`/`ShapePath` (deliberately avoiding that crash-risk surface a
 second time). **Nothing from this session tested on the VM yet** — that's
 the very next step. Full session-by-session detail lives in the repo's own
-`memory/PROJECT.md`, not duplicated here per [[feedback_session-workflow]].
+`memory/PROJECT.md`, not duplicated here per [[feedback-session-workflow]].
 
 **Session 6 (2026-07-19)**: researched Noctalia v4's "attached panel"
 technique (read the actual last-v4 source rather than guessing) — confirmed
@@ -100,7 +100,7 @@ detail as always in the repo's own `memory/PROJECT.md`.
 
 **Repo-level docs:** `dwm-titus/AGENTS.md` and `dwm-titus/SPEC.md` are the authoritative agent rules and product spec for anything inside `dwm-titus/` — read them before touching that subfolder, don't duplicate them at the root level.
 
-**Root scaffolding:** `CLAUDE.md` and `memory/PROJECT.md` at the project root, created 2026-07-16, following [[feedback_session-workflow]] and [[feedback_git-security-discipline]].
+**Root scaffolding:** `CLAUDE.md` and `memory/PROJECT.md` at the project root, created 2026-07-16, following [[feedback-session-workflow]] and [[feedback_git-security-discipline]].
 
 **`dwm-titus` explored in full (2026-07-16):** monolithic (non patch-queue) dwm fork, X11-only, C99/pkg-config build with an in-tree TOML parser (`tomlparser.c`) compiled into the binary for runtime-hot-reloadable `hotkeys.toml`/`themes.toml`/`window-rules.toml`. `install.sh` is distro-aware (Debian/Arch/Fedora-RHEL) with three cumulative profiles (core/recommended/full); the Fedora ISO builder is not a separate installer — its Kickstart `%post` just runs `install.sh --non-interactive --profile core` on the freshly provisioned box. Full Quickshell shell layer (panel/launcher/controlcenter/controls/network/notifications/power/health) is QML UI shelling out to `scripts/dwm-quickshell-*` helpers for all real system interaction. The Rofi→Quickshell migration in `docs/ROADMAP.md` is 100% complete, not in progress. Full write-up at `dwm-titus-overview.md` in the repo root.
 

@@ -10,7 +10,7 @@ metadata:
 The user tracks four small repos that together define their project-bootstrap conventions (see `links.txt` in a new project's root, or ask):
 
 - `https://codeberg.org/bojanstrkovski-21/git_init_first_time.git` — git/Codeberg bootstrap toolkit + the origin of the token-leak security lesson (see [[feedback_git-security-discipline]]).
-- `https://github.com/bojanstrkovski-21/session-defaults.git` — original cross-project bootstrap kit and `PROJECT.md`/session-prompt templates (see [[feedback_session-workflow]]).
+- `https://github.com/bojanstrkovski-21/session-defaults.git` — original cross-project bootstrap kit and `PROJECT.md`/session-prompt templates (see [[feedback-session-workflow]]).
 - `https://codeberg.org/bojanstrkovski-21/archboki-doom-emacs-project.git` — example of the CLAUDE.md + `memory/PROJECT.md` pattern in an actual Claude Code project (no `.github/prompts`).
 - `https://codeberg.org/bojanstrkovski-21/archboki-doom-emacs-config.git` — another live example of the same pattern, hosting the user's real Doom Emacs config.
 
