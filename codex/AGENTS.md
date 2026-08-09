@@ -15,11 +15,16 @@ plan is approved, execute all its steps without further mid-plan check-ins.
 
 ## Git
 
-- Never run git commands (init, commit, push, branch, tag) automatically.
+- Never run git commands (init, commit, push, branch, tag, remote) automatically.
 - When constructing a new project directory, ask explicitly whether to
   `git init` it.
 - `git status` (read-only) is fine to run proactively; anything that mutates
   history or a remote needs an explicit ask first.
+- Push and authentication are a harder line than the rest: default to the
+  user pushing themselves with their own scripts, on any host. Don't reach
+  for `gh auth`, credential-helper, or SSH-agent commands even to check
+  status — if pushing is blocked on auth, say so and stop, don't
+  troubleshoot credentials.
 - Never force push. Never amend a published commit. Never create tags without
   being asked.
 

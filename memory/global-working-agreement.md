@@ -17,9 +17,16 @@ mid-plan. This matches the pattern independently confirmed across multiple
 projects — see [[feedback-working-style]].
 
 **Git discipline:**
-- Never run git commands (init, commit, push, branch, tag) automatically.
+- Never run git commands (init, commit, push, branch, tag, remote) automatically.
 - When constructing a new project directory, ask explicitly whether to
   `git init` it — don't assume.
+- Local, non-network git steps (init, add remote, rename branch, commit) are
+  fine once each is confirmed. **Push and authentication are a harder line**
+  — default to the user pushing themselves with their own scripts, on any
+  host, and don't reach for `gh auth`/credential-helper/SSH-agent commands
+  even to check status. Reconfirmed 2026-08-09 on a GitHub remote after
+  originally being established for Codeberg — see
+  [[feedback-codeberg-pushes]].
 - On session-end, check `git status` (and ahead/behind vs remote if a remote
   exists). If there are uncommitted or unpushed changes, remind the user
   explicitly that the session's work is not committed/pushed and that they

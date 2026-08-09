@@ -76,6 +76,9 @@ new_project() {
   run mkdir -p "$dir/.github/prompts"
   run cp -r "$agents_root/copilot/prompts/." "$dir/.github/prompts/"
   run cp "$agents_root/copilot/copilot-instructions.md" "$dir/.github/copilot-instructions.md"
+  run bash -c "sed 's/project=your-project-name/project=$name/' '$agents_root/copilot/set-git-cred.sh' > '$dir/set-git-cred.sh'"
+  run cp "$agents_root/copilot/push.sh" "$dir/push.sh"
+  run chmod +x "$dir/set-git-cred.sh" "$dir/push.sh"
 
   if [[ "$style" == "full" ]]; then
     run cp -r "$agents_root/docs/project-docs/." "$dir/"
@@ -83,7 +86,7 @@ new_project() {
     run bash -c "sed 's/{{PROJECT_NAME}}/$name/g' '$agents_root/docs/PROJECT.template.md' > '$dir/PROJECT.md'"
   fi
 
-  printf 'Created %s (docs: %s). This is a scaffold only — git init is NOT run here; say "start session" inside it and confirm when asked.\n' "$dir" "$style"
+  printf 'Created %s (docs: %s). This is a scaffold only — git init/set-git-cred.sh/push.sh are NOT run here, that stays yours to run; say "start session" inside it and confirm when asked.\n' "$dir" "$style"
 }
 
 main() {

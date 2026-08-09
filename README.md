@@ -21,19 +21,35 @@ per-project memory.
 - `claude/` — `CLAUDE.md`, linked to `~/.claude/CLAUDE.md`.
 - `codex/` — ported from titus-ai, dormant until Codex is reinstalled.
   `install.sh` links it automatically once `~/.codex` exists.
-- `copilot/` — ported from session-defaults. Copilot has no user-global
-  instructions file, so this is consumed via `install.sh new-project`
-  instead of a symlink.
+- `copilot/` — ported from session-defaults, plus `set-git-cred.sh`/`push.sh`
+  (the user's standard git bootstrap scripts, used in ~20 of their projects).
+  Copilot has no user-global instructions file, so this whole directory is
+  consumed via `install.sh new-project` instead of a symlink.
 - `install.sh` — idempotent installer (same backup-then-symlink pattern as
-  titus-ai's) plus a `new-project` bootstrap command.
+  titus-ai's) plus a `new-project` bootstrap command that also fills in and
+  copies `set-git-cred.sh`/`push.sh`.
+- `set-git-cred.sh`, `push.sh` — this repo's own filled-in copies
+  (`project=bole-labs-ai`), for the user to run themselves. Not run by
+  Claude/Codex/Copilot — see the git-authentication rule below.
 
 ## Governing policy
 
 Confirm-first across all three tools: state the intended change, wait for a
-go-ahead, never run git commands (init/commit/push/branch/tag) without being
-asked. New project directories get an explicit git-init question; ending a
-session checks for uncommitted/unpushed work and reminds rather than acting.
-Full rationale in `memory/global-working-agreement.md`.
+go-ahead, never run git commands (init/commit/push/branch/tag/remote)
+without being asked. New project directories get an explicit git-init
+question; ending a session checks for uncommitted/unpushed work and reminds
+rather than acting. Local git steps (init, remote add, branch rename,
+commit) are fine once confirmed; **push and authentication are a harder
+line** — the user pushes themselves with `set-git-cred.sh`/`push.sh` on any
+host, and the agent doesn't reach for `gh auth`/credential-helper/SSH-agent
+commands even to check status. Full rationale in
+`memory/global-working-agreement.md` and `memory/feedback-codeberg-pushes.md`.
+
+## Current remote state
+
+`~/.agents` itself: local `main` branch, `origin` ->
+`github.com/bojanstrkovski-21/bole-labs-ai` (added, not pushed — pending the
+user running `./set-git-cred.sh` then `./push.sh`).
 
 ## Known follow-ups (not done in the initial merge)
 
