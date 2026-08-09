@@ -73,3 +73,9 @@ user running `./set-git-cred.sh` then `./push.sh`).
 - `codex/config.toml` is linked as-is; it does not get titus-ai's
   per-machine `~/github` trust-entry rendering. Run titus-ai's own
   `scripts/install.sh` instead if that's needed.
+
+## Acknowledgments
+
+Thanks to [Chris Titus Tech](https://github.com/ChrisTitusTech) and
+[Erik Dubois](https://github.com/erikdubois) for the neverending
+inspiration.
