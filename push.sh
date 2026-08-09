@@ -16,14 +16,9 @@ read input
 git commit -m "$input"
 
 # Push to the correct branch
-git config --get remote.origin.url | grep -q main && {
-    echo "Using main"
-    git push -u origin main
-}
-git config --get remote.origin.url | grep -q master && {
-    echo "Using master"
-    git push -u origin master
-}
+branch=$(git rev-parse --abbrev-ref HEAD)
+echo "Using $branch"
+git push -u origin "$branch"
 
 #git push -u origin main --force
 
