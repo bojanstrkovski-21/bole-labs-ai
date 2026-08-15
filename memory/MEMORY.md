@@ -32,6 +32,7 @@ One file per fact; see individual files for full content.
 - [project-db-path.md](project-db-path.md) — DB_PATH must be absolute — relative path caused silent wrong-database bugs
 - [project_doom_vs_spacemacs.md](project_doom_vs_spacemacs.md) — Repo purpose and status for archboki-doom-emacs-project (Doom Emacs vs Spacemacs comparison)
 - [project_dwm-quickshell.md](project_dwm-quickshell.md) — dwm-quickshell project — parent dir wrapping a ChrisTitusTech dwm fork + Quickshell shell layer
+- [project_vm_staged_script_install.md](project_vm_staged_script_install.md) — Reusable VM deploy workflow for quickshell-scripts/* changes needing sudo — scp to a .new staging name, then run the persistent vm-install-staged.sh on the VM
 - [project_gui_status.md](project_gui_status.md) — Current development state of the arch-boki-post-install GUI tool — what's done, what's pending
 - [project-import-export.md](project-import-export.md) — Student Excel import/export feature — fields, routes, normalization
 - [project-kniga-za-posta.md](project-kniga-za-posta.md) — kniga-za-posta — postal package log web app (Flask + SQLite), built via Copilot/session-defaults, not currently tracked elsewhere
@@ -41,10 +42,12 @@ One file per fact; see individual files for full content.
 - [reference_astro_webhome_visual_testing.md](reference_astro_webhome_visual_testing.md) — How to spin up a headless browser to screenshot-verify CSS/layout changes in this repo
 - [reference_awk_func_reserved_word.md](reference_awk_func_reserved_word.md) — In awk, `func` is a reserved word (synonym for `function`) — using it as a plain variable name causes a cryptic syntax error, not a clear "reserved word" message
 - [reference_ssh-session-testing-artifact.md](reference_ssh-session-testing-artifact.md) — Manually spawning/restarting a process over SSH to test session/cgroup-dependent behavior binds it to the SSH connection's own session, not the target session — verify via /proc/PID/environ+cgroup before trusting results
+- [reference_ssh_display_not_inherited.md](reference_ssh_display_not_inherited.md) — A GUI-launching action script called over a bare SSH command silently fails with "could not connect to display" unless DISPLAY is exported explicitly first — the login session's DISPLAY isn't inherited
 - [reference_codeberg_conventions.md](reference_codeberg_conventions.md) — User hosts personal projects on Codeberg (not GitHub) with a standard bootstrap pattern of scripts/CLAUDE.md/memory folder
 - [reference_doom_theme_loading.md](reference_doom_theme_loading.md) — Where the user's Doom Emacs config lives and how it loads/updates the archboki-emacs-themes package
 - [reference_posix_sh_function_scope_collision.md](reference_posix_sh_function_scope_collision.md) — POSIX shell functions don't have separate variable scopes by default — a loop variable in a helper function can silently clobber a same-named variable in the calling function
 - [reference_project-templates.md](reference_project-templates.md) — Where the user's project-bootstrap conventions/templates live (links.txt precedent repos)
+- [reference_qt6_qml_tools_path.md](reference_qt6_qml_tools_path.md) — Real Qt6 QML tools (qmllint etc.) live at /usr/lib/qt6/bin/ — plain `qmllint` on PATH is Qt5's and silently fails on this project's QML
 - [reference_repo_setup.md](reference_repo_setup.md) — Where this project is hosted and how the user publishes changes
 - [reference_scp_multifile_flattening.md](reference_scp_multifile_flattening.md) — scp with multiple source files from different subdirectories and one directory destination silently flattens every path to its basename
 - [reference_unicode_pua_glyph_tool_calls.md](reference_unicode_pua_glyph_tool_calls.md) — Private-use-area Unicode glyphs (Nerd Font icon codepoints) silently become empty strings when typed directly through Edit/Write tool calls
