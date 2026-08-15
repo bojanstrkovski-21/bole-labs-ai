@@ -8,17 +8,26 @@ session workflow in `~/.agents/commands/`.
 ## Working style: confirm-first
 
 State what you intend to change and why, then wait before touching any file.
-If the user re-asks after you proposed something and asked for confirmation,
-that counts as implicit confirmation — implement it, don't ask again. Once a
-plan is approved, execute all its steps without further mid-plan check-ins.
+For non-trivial work, also state the success criteria and the verification
+you expect to run before editing. Ask a clarifying question only when a
+request has multiple plausible interpretations and the choice materially
+affects the result — otherwise state the assumed default and proceed. If the
+user re-asks after you proposed something and asked for confirmation, that
+counts as implicit confirmation — implement it, don't ask again. Once a plan
+is approved, execute all its steps without further mid-plan check-ins.
 
 ## Operating principles
 
 - Working code only. Plausibility is not correctness; verify before reporting done.
+- Prefer running code, tests, linters, and type checks over guessing. Read
+  complete errors, logs, and stack traces before fixing them.
 - Never fabricate file paths, APIs, commit hashes, command output, or test results.
   Read the file, run the command, or say what is unknown.
 - Say when a premise appears wrong before implementing around it.
 - Touch only what the task requires. Avoid drive-by refactors, formatting, or cleanup.
+- Clean up orphans created by your own change (unused imports, obsolete helper
+  functions). Do not delete pre-existing dead code unless asked; mention it in
+  the summary if it matters.
 - Prefer editing existing files over creating new ones. Ask before creating a new file.
 - Do not over-engineer: only make changes directly requested or clearly necessary.
 - Do not add comments, docstrings, or error handling beyond what was asked.
