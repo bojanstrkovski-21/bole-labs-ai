@@ -32,7 +32,7 @@ One file per fact; see individual files for full content.
 - [project-db-path.md](project-db-path.md) — DB_PATH must be absolute — relative path caused silent wrong-database bugs
 - [project_doom_vs_spacemacs.md](project_doom_vs_spacemacs.md) — Repo purpose and status for archboki-doom-emacs-project (Doom Emacs vs Spacemacs comparison)
 - [project_dwm-quickshell.md](project_dwm-quickshell.md) — dwm-quickshell project — parent dir wrapping a ChrisTitusTech dwm fork + Quickshell shell layer
-- [project_vm_staged_script_install.md](project_vm_staged_script_install.md) — Reusable VM deploy workflow for quickshell-scripts/* changes needing sudo — scp to a .new staging name, then run the persistent vm-install-staged.sh on the VM
+- [project_vm_staged_script_install.md](project_vm_staged_script_install.md) — Reusable VM deploy workflow for quickshell-scripts/* changes needing sudo (scp to a .new staging name, then vm-install-staged.sh) — plus a second install location (chadwm-boki's Makefile pulls from ~/.config/quickshell-scripts/) that must be patched too or the fix reverts on the next rebuild
 - [project_gui_status.md](project_gui_status.md) — Current development state of the arch-boki-post-install GUI tool — what's done, what's pending
 - [project-import-export.md](project-import-export.md) — Student Excel import/export feature — fields, routes, normalization
 - [project-kniga-za-posta.md](project-kniga-za-posta.md) — kniga-za-posta — postal package log web app (Flask + SQLite), built via Copilot/session-defaults, not currently tracked elsewhere
@@ -48,9 +48,12 @@ One file per fact; see individual files for full content.
 - [reference_posix_sh_function_scope_collision.md](reference_posix_sh_function_scope_collision.md) — POSIX shell functions don't have separate variable scopes by default — a loop variable in a helper function can silently clobber a same-named variable in the calling function
 - [reference_project-templates.md](reference_project-templates.md) — Where the user's project-bootstrap conventions/templates live (links.txt precedent repos)
 - [reference_qt6_qml_tools_path.md](reference_qt6_qml_tools_path.md) — Real Qt6 QML tools (qmllint etc.) live at /usr/lib/qt6/bin/ — plain `qmllint` on PATH is Qt5's and silently fails on this project's QML
+- [reference_quickshell_process_write_race.md](reference_quickshell_process_write_race.md) — Quickshell's Process.write() no-ops until the process has actually spawned, and stdinEnabled doesn't reset between runs — writing right after running=true and not resetting stdinEnabled races/hangs the child silently
 - [reference_repo_setup.md](reference_repo_setup.md) — Where this project is hosted and how the user publishes changes
 - [reference_scp_multifile_flattening.md](reference_scp_multifile_flattening.md) — scp with multiple source files from different subdirectories and one directory destination silently flattens every path to its basename
 - [reference_unicode_pua_glyph_tool_calls.md](reference_unicode_pua_glyph_tool_calls.md) — Private-use-area Unicode glyphs (Nerd Font icon codepoints) silently become empty strings when typed directly through Edit/Write tool calls
+- [reference_x11_hotkey_keysym_vs_keycode.md](reference_x11_hotkey_keysym_vs_keycode.md) — X11 global-hotkey daemons must grab AND match by keycode, not keysym — matching by a live-resolved keysym silently breaks letter-triggered bindings under a non-Latin active layout
+- [reference_xdotool_raw_keycode_injection.md](reference_xdotool_raw_keycode_injection.md) — xdotool key <letter> is unreliable for testing a layout-dependent X11 keybind when the active layout lacks that letter's keysym — use raw keycode down/up injection instead
 - [reference-push-sh-branch-detection-bug.md](reference-push-sh-branch-detection-bug.md) — push.sh template's grep-on-URL check silently skips push when repo name lacks "main"/"master"
 - [rofi-appgrid-project.md](rofi-appgrid-project.md) — Status/pointer for the rofi-appgrid theme project — a rofi theme for a personal drun-categories fork
 - [session_log.md](session_log.md) — Running log of work sessions on arch-boki-logout, newest first

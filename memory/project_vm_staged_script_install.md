@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: a1ef345b-4266-40ee-a890-c039b99ee333
-  modified: 2026-08-15T10:23:09.100Z
+  modified: 2026-08-20T22:20:53.946Z
 ---
 
 [[project_dwm-quickshell]]'s test VM (`archboki-vm`, `bole-labs@192.168.122.81`)
@@ -32,3 +32,18 @@ regenerate one-off `sudo cp`/`rm` commands or recreate the script. If the
 VM's copy of `vm-install-staged.sh` itself is ever missing or stale,
 redeploy it from the repo's own `vm-install-staged.sh` (it's tracked
 there, not VM-only).
+
+**Second install location, found the hard way (Session 14, 2026-08-20):**
+`/usr/local/bin` is not the *only* place a `quickshell-scripts/*` script
+lives on the VM — `chadwm-boki`'s own `Makefile` installs the same scripts
+from `~/.config/quickshell-scripts/` (a separate, user-writable copy) every
+time `sudo make install` runs, which every real `./rebuild` does. Patching
+only `/usr/local/bin` via the workflow above looks like it worked (the fix
+is live immediately) but silently reverts on the very next rebuild, since
+that overwrites `/usr/local/bin` from the stale `~/.config/
+quickshell-scripts/` copy. Cost a full round of wasted user testing before
+being caught by directly `grep`-ing the reinstalled binary. **Fix any
+`quickshell-scripts/*` script in both places**: `scp` it to
+`~/.config/quickshell-scripts/<name>` directly (no sudo, user-owned) *and*
+stage+install it to `/usr/local/bin` via the workflow above — checksum-diff
+both against the repo afterward to confirm they agree.
