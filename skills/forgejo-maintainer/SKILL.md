@@ -7,11 +7,14 @@ description: Maintain Forgejo and Gitea-compatible installations, repository adm
 
 ## Workflow
 
-1. Gather deployment, version, database, config, runner, and storage state.
-2. Determine user impact for Git, web, SSH, packages, and Actions.
-3. Create rollback with database and data backups.
-4. Implement the smallest admin, config, runner, or upgrade change.
-5. Validate web, SSH, repository, backup, and runner behavior.
+1. Establish the deployment method, Forgejo version, database, storage paths,
+   configuration, and runner topology.
+2. Separate application failures from host, network, container, and reverse
+   proxy failures; use the narrower skill for substantial work in those layers.
+3. Determine impact to Git, web, SSH, packages, and Actions, then create
+   rollback with database and data backups.
+4. Make the smallest application-specific change and validate every affected
+   access path.
 
 ## Diagnostics
 
@@ -25,6 +28,16 @@ ss -tulpn
 ssh -T git@<host>
 curl -I <root-url>
 ```
+
+## Diagnose from evidence
+
+Work from evidence, not a plausible-sounding story. Correlate the failure
+time against logs, file/config mtimes, and recent changes (deploys, package
+updates, edits) before proposing a cause. State plainly what the evidence
+proves versus what is inferred, and say so directly when the cause is
+genuinely ambiguous rather than settling on a guess. Diagnosis is read-only
+until the cause is established — do not fix, tidy, or reconfigure while
+still gathering evidence.
 
 ## Safety Rules
 

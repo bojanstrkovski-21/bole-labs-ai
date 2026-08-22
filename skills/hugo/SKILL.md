@@ -17,6 +17,10 @@ Before editing, inspect the project shape:
 - Check the build/deploy path: `package.json`, `go.mod`, `.github/workflows/`, `netlify.toml`, `vercel.json`, `wrangler.*`, Cloudflare Pages docs, Makefile, or project scripts.
 - Run or inspect `hugo version` when validation depends on version-specific behavior.
 - Inspect `git status --short` and preserve unrelated user changes.
+- Before telling the user a feature, shortcode, param, or config option isn't
+  present or supported, grep the actual project (templates, config, `go.mod`,
+  theme source) for it rather than answering from general Hugo knowledge
+  alone. Only report it's unsupported after that search comes up empty.
 
 ## Common Commands
 
@@ -109,5 +113,12 @@ For high-impact template or URL changes, also inspect representative generated p
 - Search or JSON output if present.
 - RSS or sitemap if touched.
 - A page using any changed shortcode/render hook.
+
+If the complete build fails because of a confirmed pre-existing problem outside
+the requested change, do not weaken or hide that failure. Use the narrowest
+legitimate Hugo option or environment that still renders the affected content,
+inspect the generated output, and report the focused validation separately from
+the unresolved full-build blocker. Never describe focused validation as a
+successful complete build.
 
 Report validation commands run, failures, skipped checks, and residual risks.

@@ -8,10 +8,13 @@ description: Build, deploy, and troubleshoot Podman services, Quadlet units, roo
 ## Workflow
 
 1. Gather container, image, network, volume, and systemd state.
-2. Determine whether rootless or rootful operation is required.
-3. Create rollback using previous image tags, unit files, and volume backups.
-4. Implement the smallest Quadlet or Podman change.
-5. Validate container health through systemd and Podman.
+2. Separate container lifecycle or Quadlet failures from underlying host,
+   storage, DNS, and application failures; route substantial work in those
+   layers to the narrower skill.
+3. Determine whether rootless or rootful operation is required and create
+   rollback using previous image tags, unit files, and volume backups.
+4. Implement the smallest Podman-specific change and validate it through both
+   systemd and Podman.
 
 ## Diagnostics
 
@@ -26,6 +29,16 @@ systemctl --user status <unit>
 journalctl --user -xeu <unit>
 loginctl show-user <user>
 ```
+
+## Diagnose from evidence
+
+Work from evidence, not a plausible-sounding story. Correlate the failure
+time against logs, file/config mtimes, and recent changes (deploys, package
+updates, edits) before proposing a cause. State plainly what the evidence
+proves versus what is inferred, and say so directly when the cause is
+genuinely ambiguous rather than settling on a guess. Diagnosis is read-only
+until the cause is established — do not fix, tidy, or reconfigure while
+still gathering evidence.
 
 ## Safety Rules
 

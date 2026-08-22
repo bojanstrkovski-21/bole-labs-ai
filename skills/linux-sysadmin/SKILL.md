@@ -8,10 +8,12 @@ description: Diagnose and operate Linux systems, especially Rocky Linux and Ubun
 ## Workflow
 
 1. Gather host, service, resource, network, and security diagnostics.
-2. Determine impact and recent changes.
-3. Create rollback for files, packages, service units, and firewall changes.
-4. Implement the smallest fix.
-5. Validate runtime behavior and boot persistence.
+2. Determine whether the failure is host-level or primarily belongs to a
+   specialized application, container, or cross-system infrastructure skill.
+3. Identify impact and recent changes, then create rollback for files,
+   packages, service units, and firewall changes.
+4. Implement the smallest host-level fix and validate runtime behavior, remote
+   access, security policy, and boot persistence.
 
 ## Diagnostics
 
@@ -29,6 +31,16 @@ getenforce
 firewall-cmd --list-all
 ufw status verbose
 ```
+
+## Diagnose from evidence
+
+Work from evidence, not a plausible-sounding story. Correlate the failure
+time against logs, file/config mtimes, and recent changes (deploys, package
+updates, edits) before proposing a cause. State plainly what the evidence
+proves versus what is inferred, and say so directly when the cause is
+genuinely ambiguous rather than settling on a guess. Diagnosis is read-only
+until the cause is established — do not fix, tidy, or reconfigure while
+still gathering evidence.
 
 ## Safety Rules
 

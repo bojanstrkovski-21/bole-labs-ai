@@ -19,14 +19,19 @@ description: Validate local or published changes from final diff through pull-re
    coderabbit review --agent --uncommitted --include-untracked
    ```
 
-   Let the review finish. Fix actionable defects, add regression coverage when
-   practical, rerun affected validation, and repeat the review. Explain verified
-   false positives without changing correct code.
+   Let the review finish. Verify every finding against the current diff, fix
+   only actionable defects, add regression coverage when practical, rerun
+   affected validation, and repeat the review until no actionable findings
+   remain. Explain verified false positives without changing correct code.
 5. Commit, push, or open a pull request only when the user authorized those
-   state changes. Keep the PR draft while known gates or manual tests remain.
+   state changes. Open a ready-for-review pull request by default. Create or
+   leave it as a draft only when the user explicitly requests a draft. If known
+   gates or required manual tests remain, stop before opening the pull request
+   and report the blockers instead of using draft state as a holding area.
 6. For a published PR, verify checks and reviews against the latest commit.
    Inspect thread-level resolution state rather than relying only on flat
-   comments.
+   comments. For a contributor-fork PR, read
+   [references/contributor-forks.md](references/contributor-forks.md).
 7. Require a fresh independent review. The builder's self-review and a green CI
    run do not replace it.
 8. Complete and document the repository's manual-test checklist on the real

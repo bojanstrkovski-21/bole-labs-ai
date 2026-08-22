@@ -7,7 +7,7 @@ per-project memory.
 
 ## Layout
 
-- `skills/<name>/SKILL.md` — 12 reusable skills, agent-agnostic. This is
+- `skills/<name>/SKILL.md` — 14 reusable skills, agent-agnostic. This is
   already Codex's native `AGENTS_HOME/skills` path; Claude reaches it via a
   per-skill symlink into `~/.claude/skills/`.
 - `memory/` — global fact pool, shared across every project (not per-repo).
