@@ -1,12 +1,48 @@
 ---
 name: project-dwm-quickshell
-description: dwm-quickshell project — parent dir wrapping a ChrisTitusTech dwm fork + Quickshell shell layer
+description: dwm-quickshell project — parent dir wrapping a ChrisTitusTech dwm fork + Quickshell shell layer, ported/renamed to chadboki-qswm
 metadata: 
   node_type: memory
   type: project
   originSessionId: a1ef345b-4266-40ee-a890-c039b99ee333
-  modified: 2026-08-15T10:26:31.852Z
+  modified: 2026-08-22T14:28:26.939Z
 ---
+
+**Renamed 2026-08-22 (Session 16): the built/deployed result of this whole
+port is now `chadboki-qswm`, not `chadwm-boki`** — the user separately
+runs an actual `chadwm-boki` (dwmbar/dwmblocks-based, unrelated to
+Quickshell) on the same machine, and the two collided on binary name and
+`~/.config`/`~/.local/share` paths. Binary, session `.desktop`, and every
+deploy path were renamed end-to-end; this repo's own `chadwm-boki/`
+working-copy folder name was deliberately kept as-is (a dev-workspace
+label, never deployed). See the repo's own `memory/PROJECT.md` Session 16
+entry for the full rename. Everything below this note is older narrative
+that still says `chadwm-boki` throughout — read it as history, not the
+current target name.
+
+**Session 17 (2026-08-22/23)**: built a full Weather panel-widget feature
+end-to-end (backend + model + a card-based popup redesign + a full
+Settings panel — units/time-format/refresh-interval/section toggles/
+storm alerts/radar site). Also found and fixed a real regression from
+Session 16's rename: `dwm-quickshell-theme`/`-chadwm-hotkeys`/
+`-compositor` had been pointed at the nonexistent `~/.config/
+chadboki-qswm` instead of the actual (deliberately unrenamed) live
+checkout `~/.config/chadwm-boki` — see [[reference_qml_repeater_modeldata_property_declaration_collision]]
+for one of the real QML bugs hit building the Weather feature. Full
+write-up in the repo's own `memory/PROJECT.md` Session 17 entry.
+
+**Session 18 (2026-08-23)**: compared three external projects for
+portable ideas (JKBar, dwm-titus's Phase 4 batch, omarchy-display-
+manager) and built the genuinely portable pieces from each — hover-glow,
+edge-auto-scroll, CPU temp monitoring, a `dwm.c` SIGUSR2 graceful-exit
+handler, `dwm-status` identity-verified cleanup, and Displays'
+preview+15s-rollback. A real relogin surfaced a real bug (an abandoned
+session killing a fresh `dwm-status` via a shared-`DISPLAY` identity
+key), answered with a new abandoned-session-detection+cleanup feature —
+verified against the actual bug it was built to fix, not just tested in
+the abstract. See [[reference_bash_backgrounded_function_ps_cmdline]] for
+a real self-caught false alarm along the way. Full write-up in the
+repo's own `memory/PROJECT.md` Session 18 entry.
 
 Root folder `dwm-quickshell` (path: `/home/bojanstrko/Projects/dwm-quickshell/`). **Purpose (confirmed 2026-07-16): an R&D workspace to study how `dwm-titus/` wires Quickshell into dwm, in order to port an equivalent integration onto the user's actual daily-driver fork, `chadwm-boki` (`/home/bojanstrko/.config/chadwm-boki/chadwm-boki/`, outside this repo, no `.git` yet).** `dwm-titus/` (a clone of ChrisTitusTech's heavily-patched dwm fork, X11/C99/Xlib) is reference material to study/diff against, not the target desktop itself. Its `docs/ROADMAP.md` Rofi→Quickshell migration is fully complete (all 10 phases checked off), not in progress.
 
