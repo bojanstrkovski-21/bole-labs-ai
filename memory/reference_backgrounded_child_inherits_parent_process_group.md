@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: reference
   originSessionId: f1b950f0-c1d0-4466-923f-bc56f9964782
-  modified: 2026-08-30T23:07:17.553Z
+  modified: 2026-09-01T21:50:02.030Z
 ---
 
 Backgrounding a process with a bare `foo &` does **not** give it its own
@@ -44,3 +44,7 @@ every time Quickshell itself restarted — confirmed via matching PGIDs,
 fixed by routing the launch through this project's existing
 `setsid`-wrapped `launch_background()` helper, the same one already used
 everywhere else in the project for exactly this reason.
+
+The opposite-direction sibling of this issue —a script's *own* cleanup
+not reaching far enough into what it spawned, rather than someone else's
+sweep reaching too far— is [[reference_pipeline_child_survives_parent_kill]].
