@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: a1ef345b-4266-40ee-a890-c039b99ee333
-  modified: 2026-08-22T14:28:26.939Z
+  modified: 2026-09-02T21:25:27.604Z
 ---
 
 **Renamed 2026-08-22 (Session 16): the built/deployed result of this whole
@@ -43,6 +43,27 @@ verified against the actual bug it was built to fix, not just tested in
 the abstract. See [[reference_bash_backgrounded_function_ps_cmdline]] for
 a real self-caught false alarm along the way. Full write-up in the
 repo's own `memory/PROJECT.md` Session 18 entry.
+
+**Session 19/19-continued/20 (2026-08-30 through 2026-09-02)**: Control
+Center rewritten around a generic, searchable route/row engine (Omarchy-
+style redesign, 6 phases, all done) with a new Setup section (Pacman/AUR
+install-remove-update, WebApps, Nerd Fonts). Suspend feature shipped. A
+full test-coverage sweep brought every one of the ~22 backend scripts to
+mutation-tested coverage (was 6) and found/fixed several real,
+previously-unknown bugs (`dwm-status` leaking orphan processes on every
+logout since Session 12, chief among them). Then the occupied-workspace/
+urgent-tag panel indicators were fixed at the root — chadwm-boki's own
+pre-existing `_NET_CLIENT_INFO`/`setclienttagprop()` needed the shell-
+script consumer fixed, not a new EWMH mechanism — extended with a real
+urgency flag through `dwm.c`'s `seturgent()`/`updatewmhints()`. See
+[[reference_argb_hex_alpha_byte_parsing]] for a real `Theme.qml` bug
+found live during that work. Also ported a real `dwm.c` correctness fix
+from upstream (`restack()` was only re-raising the *selected* floating
+window, not every floating window, letting an unselected one sink below
+a tiled client), and closed a searchability gap by adding Network/
+Bluetooth/Audio + a Screenshots submenu to Control Center. Full write-up,
+as always, in the repo's own `memory/PROJECT.md` (Session 19/19
+continued/20 entries) and `CLAUDE.md`'s Current State.
 
 Root folder `dwm-quickshell` (path: `/home/bojanstrko/Projects/dwm-quickshell/`). **Purpose (confirmed 2026-07-16): an R&D workspace to study how `dwm-titus/` wires Quickshell into dwm, in order to port an equivalent integration onto the user's actual daily-driver fork, `chadwm-boki` (`/home/bojanstrko/.config/chadwm-boki/chadwm-boki/`, outside this repo, no `.git` yet).** `dwm-titus/` (a clone of ChrisTitusTech's heavily-patched dwm fork, X11/C99/Xlib) is reference material to study/diff against, not the target desktop itself. Its `docs/ROADMAP.md` Rofi→Quickshell migration is fully complete (all 10 phases checked off), not in progress.
 

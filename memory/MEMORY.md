@@ -44,6 +44,7 @@ One file per fact; see individual files for full content.
 - [project-ministries.md](project-ministries.md) — Ministries admin feature — table, routes, how it connects to certificate form
 - [project-overview-arch-boki-logout.md](project-overview-arch-boki-logout.md) — What arch-boki-logout is, its architecture, and where the key code lives
 - [project-overview-svidetelstva.md](project-overview-svidetelstva.md) — What this project is, stack, directory roles, and current DB state
+- [reference_argb_hex_alpha_byte_parsing.md](reference_argb_hex_alpha_byte_parsing.md) — A luminance/contrast helper written for #RRGGBB silently misparses an #AARRGGBB string if fed one directly — reads alpha as red, red as green, green as blue, dropping blue
 - [reference_astro_webhome_visual_testing.md](reference_astro_webhome_visual_testing.md) — How to spin up a headless browser (playwright-core + system Chromium) to screenshot-verify CSS/layout changes; `astro dev` daemonizes and binds IPv6-only, prefer `npm run preview --host 127.0.0.1`
 - [reference_chris_titus_website_repo.md](reference_chris_titus_website_repo.md) — astro-webhome: sibling ChrisTitusTech/website Astro/CF-Pages project worth borrowing `_headers`, reduced-motion CSS, `color-scheme` hint from (tracked in astro-webhome's TODO.md)
 - [reference_awk_func_reserved_word.md](reference_awk_func_reserved_word.md) — In awk, `func` is a reserved word (synonym for `function`) — using it as a plain variable name causes a cryptic syntax error, not a clear "reserved word" message
