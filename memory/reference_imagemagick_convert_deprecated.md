@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: reference
   originSessionId: f1b950f0-c1d0-4466-923f-bc56f9964782
-  modified: 2026-08-29T15:57:41.600Z
+  modified: 2026-09-09T18:01:25.916Z
 ---
 
 `convert` (and other legacy per-verb binaries like `mogrify`/`composite`)
@@ -27,3 +27,12 @@ ignore for that one call. This was already noted once in
 [[project_dwm-quickshell]]'s own narrative memory (Session 8) but wasn't
 being consulted reliably mid-session — this standalone reference exists
 so it actually surfaces next time.
+
+**Confirmed still recurring (2026-09-09)**: the user called this out a
+second time after multiple `xwd -root -silent | convert xwd:- out.png`
+screenshot calls in one session all printed the deprecation warning
+again — reading this memory file once at session start isn't enough
+when the actual habit is "copy the last screenshot command verbatim."
+The durable fix is a literal find-and-replace on the command template
+itself the first time it's typed each session (`xwd -root -silent |
+magick xwd:- out.png`), not a one-time mental note.

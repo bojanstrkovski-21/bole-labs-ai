@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: a1ef345b-4266-40ee-a890-c039b99ee333
-  modified: 2026-09-02T21:25:27.604Z
+  modified: 2026-09-07T11:34:51.602Z
 ---
 
 **Renamed 2026-08-22 (Session 16): the built/deployed result of this whole
@@ -15,10 +15,34 @@ Quickshell) on the same machine, and the two collided on binary name and
 `~/.config`/`~/.local/share` paths. Binary, session `.desktop`, and every
 deploy path were renamed end-to-end; this repo's own `chadwm-boki/`
 working-copy folder name was deliberately kept as-is (a dev-workspace
-label, never deployed). See the repo's own `memory/PROJECT.md` Session 16
-entry for the full rename. Everything below this note is older narrative
-that still says `chadwm-boki` throughout — read it as history, not the
-current target name.
+label, never deployed) at the time. See the repo's own `memory/PROJECT.md`
+Session 16 entry for the full rename. Everything below this note through
+the next paragraph is older narrative that still says `chadwm-boki`
+throughout — read it as history, not the current target name.
+
+**Superseded 2026-09-07 (Session 21): that "leave it split" call is now
+reversed at the user's explicit request** — full naming consistency
+everywhere. Phase 1 (repo-only, done): the working-copy folder itself was
+renamed `chadwm-boki/` → `chadboki-qswm/` (confirmed zero runtime risk,
+it's never itself deployed), plus every doc/reference to it. **Phase 2
+(the test VM's live checkout, `~/.config/chadwm-boki` → `~/.config/
+chadboki-qswm`) done same session**: 3 backend scripts updated first
+(`dwm-quickshell-theme`/`-chadwm-hotkeys`/`-compositor`), deployed, THEN
+the directory moved, then live-verified through the real Control Center
+UI (Theme list rendering, a real `make dwm` compile, a real
+picom-config-path read/write). **A real correction found mid-work: there
+is no "Phase 3."** The daily-driver machine's `~/.config/chadwm-boki` was
+never a stand-in for this project's own work under the old name the way
+the VM's was — it's the real, currently-running, pre-Quickshell config
+(the very thing Session 16's rename exists to avoid colliding with), and
+this project's own work has never been deployed to the daily driver at
+all (a separate, still-undecided "deploy timing" item). Renaming that
+directory on its own, with nothing of this project's work in it, would
+just break the user's actual desktop for no reason — not attempted.
+Whenever deploy timing eventually gets decided, that first real deploy
+lands under the new name from the start, no rename needed there.
+See the repo's own `memory/PROJECT.md` Session 21 entry for the full
+breakdown.
 
 **Session 17 (2026-08-22/23)**: built a full Weather panel-widget feature
 end-to-end (backend + model + a card-based popup redesign + a full

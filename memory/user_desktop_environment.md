@@ -5,10 +5,10 @@ metadata:
   node_type: memory
   type: user
   originSessionId: 7c2f9ced-6117-47e1-9428-1c59460af66c
-  modified: 2026-07-21T19:11:00.021Z
+  modified: 2026-09-07T11:07:01.189Z
 ---
 
-Runs Arch Linux, **X11** session (`$XDG_SESSION_TYPE=x11`), window manager is a personal dwm/suckless-style fork called **`chadwm-boki`** — no full desktop environment (no GNOME/KDE/XFCE session), consistent with other projects like `archboki-bash-improved` and general Linux-ricing hobbyist activity (~3.5 years per [[project-celestial-theme-builder]]).
+Runs Arch Linux, **X11** session (`$XDG_SESSION_TYPE=x11`), window manager is a personal dwm/suckless-style fork now called **`chadboki-qswm`** (renamed from `chadwm-boki` in [[project_dwm-quickshell]]'s Session 16, 2026-08-22, to avoid colliding with a separate, unrelated `chadwm-boki` dwmbar/dwmblocks install also on this machine — see that project's memory for the full rename) — no full desktop environment (no GNOME/KDE/XFCE session), consistent with other projects like `archboki-bash-improved` and general Linux-ricing hobbyist activity (~3.5 years per [[project-celestial-theme-builder]]).
 
 **GTK theming toolchain**: uses **nwg-look** (a wlroots/Wayland-oriented GTK config tool, works fine on X11 too) as the sole theme-switcher. Previously also had `lxappearance` installed — **uninstalled it 2026-07-21** after we found both tools write overlapping-but-not-identical config files (`~/.gtkrc-2.0`, `gtk-3.0/settings.ini`) causing inconsistent/stuck-looking theme switches. Recommendation given: stick to nwg-look only, don't reintroduce a second GTK theme-switcher.
 
