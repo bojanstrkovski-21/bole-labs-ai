@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: a1ef345b-4266-40ee-a890-c039b99ee333
-  modified: 2026-09-07T11:34:51.602Z
+  modified: 2026-09-24T21:23:13.523Z
 ---
 
 **Renamed 2026-08-22 (Session 16): the built/deployed result of this whole
@@ -186,6 +186,43 @@ detail as always in the repo's own `memory/PROJECT.md`.
 **`dwm-titus` explored in full (2026-07-16):** monolithic (non patch-queue) dwm fork, X11-only, C99/pkg-config build with an in-tree TOML parser (`tomlparser.c`) compiled into the binary for runtime-hot-reloadable `hotkeys.toml`/`themes.toml`/`window-rules.toml`. `install.sh` is distro-aware (Debian/Arch/Fedora-RHEL) with three cumulative profiles (core/recommended/full); the Fedora ISO builder is not a separate installer — its Kickstart `%post` just runs `install.sh --non-interactive --profile core` on the freshly provisioned box. Full Quickshell shell layer (panel/launcher/controlcenter/controls/network/notifications/power/health) is QML UI shelling out to `scripts/dwm-quickshell-*` helpers for all real system interaction. The Rofi→Quickshell migration in `docs/ROADMAP.md` is 100% complete, not in progress. Full write-up at `dwm-titus-overview.md` in the repo root.
 
 **Open items (as of 2026-07-16):** `dwm-titus/`'s git `origin` still points at upstream `ChrisTitusTech/dwm-titus` (not forked to the user's own account, user said decide later); root `dwm-quickshell/` is not yet its own git repo; the actual chadwm-boki port work hasn't started and it's unconfirmed whether it'll be tracked/committed from `chadwm-boki`'s own location or via this project.
+
+**Session 27 (2026-09-13) + Session 28 (2026-09-20) — deploy timing is now
+resolved, first real live deploy happened.** Session 27 (still on the test
+VM) built a full System Updates panel widget, a `hotkeys.conf` deploy-
+safety overhaul (found the file has its own separate, 4th live path beyond
+the documented 3-copy quickshell-scripts/quickshell-configs rule), and
+Power Menu/Self-Heal fixes. **Session 28 was the first session run on the
+user's actual laptop** (`/home/bojan/Data/dwm-quickshell`, a different
+machine/user than this sandbox's `/home/bojanstrko/...` — real live paths
+`~/.config/quickshell`/`~/.config/chadboki-qswm`, only touched on the
+user's explicit per-request "copy"/"deploy", never assumed) — the
+long-open "deploy timing" question from Session 21 is answered: it already
+happened. That session root-caused a real battery-pill bug (a Session 25
+QML `id`-vs-property confusion, see
+[[reference_qml_child_id_not_root_property]]), replaced SDDM with LightDM+
+slick-greeter after a logout hang (never fully proven to be SDDM's fault,
+but the hang stopped), added a Panel Opacity stepper, and fixed a real
+`dwm.c` focus-restore bug. Git remote there is now SSH
+(`git@codeberg.org:bojanstrkovski-21/dwm-quickshell.git`), pushed
+successfully from the user's own terminal — pushes still never run from
+inside a Claude session, same standing rule. Full write-up in the repo's
+own `memory/PROJECT.md` Session 27/28 entries.
+
+**Session 30 (2026-09-24)**: built and VM-verified the self-update
+mechanism (Update > Desktop button + a 4th `desktop` Updates-pill source,
+`.source-repo`/`.deployed-commit` markers since the deployed checkout has
+no `.git`), Makefile-installed login-screen badge/avatar (renamed to the
+exact filenames slick-greeter/AccountsService actually look for),
+overhauled Default Apps (an elide-direction bug fix — see
+[[reference_text_elide_direction_matches_meaningful_part]] — plus a
+"Restore Defaults" action with a red-text flag for a missing preferred
+app), built a UI Scale setting (absorbed the old Layout pixel sliders
+into one master `Theme.uiScalePercent`, per direct "one master" decision
+over keeping both), and found+fixed a real bug where a passive Control
+Center hover was silently triggering the system polkit auth agent — see
+[[reference_hover_handler_privileged_action]]. Full write-up, as always,
+in the repo's own `memory/PROJECT.md` Session 30 entry.
 
 **Session 8 (2026-07-30): direct SSH access to the test VM established.** A dedicated key (`~/.ssh/vm_archboki`, alias `archboki-vm`) now connects this sandbox straight to `bole-labs@192.168.122.81` (the disposable test VM only, never the live daily-driver machine) — no passwordless `sudo` there, so privileged steps still get handed to the user. This changed the whole testing workflow going forward: deploy via `scp`, restart Quickshell over SSH, screenshot via `xwd` piped through `magick` (neither `import` nor `flameshot` worked reliably there; ImageMagick v7 on the VM prints a deprecation warning for the old `convert` alias — use `magick file.xwd file.png` instead), simulate clicks via `xdotool` — instead of relaying commands through the user and waiting for pasted output. Also learned: **picom is deliberately kept off on this VM** (caused real sluggishness/freeze problems for the user previously) — don't suggest re-enabling it without being asked, and remember this means `ClickAwayPopup`-style semi-transparent/dimmed overlays render as flat opaque colors there (X11 ignores alpha entirely without a compositor).
 

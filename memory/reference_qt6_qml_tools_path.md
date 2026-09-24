@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: reference
   originSessionId: a1ef345b-4266-40ee-a890-c039b99ee333
-  modified: 2026-08-15T09:50:16.544Z
+  modified: 2026-09-12T11:27:49.984Z
 ---
 
 On this machine, plain `qmllint` (resolved via PATH to `/usr/bin/qmllint`)
@@ -50,3 +50,18 @@ using Quickshell/qs.core QML on this machine), always invoke
 `/usr/lib/qt6/bin/qmllint` by full path, never bare `qmllint` — the PATH
 one is the wrong major version and its silent failure gives false
 confidence that a syntax check was actually performed.
+
+**Confirmed again (2026-09-12) with the actual fix**: the project's own
+`quickshell` skill ships `scripts/quickshell-qmllint`, a helper that
+builds proper lint-only `qmldir` maps for `qs.*` imports (a real fix,
+not just suppressing warnings — took a ~150-warning file down to 1
+genuine edge case). That helper's own `find_qmllint()` picks a bare
+`qmllint` off PATH by default, so on this machine it silently hits the
+same wrong Qt5 binary and fails with exit 255 and zero output — always
+pass `--qmllint /usr/lib/qt6/bin/qmllint` explicitly when invoking it
+here. Separately, for the IDE's own automatic per-edit lint noise (not
+a deliberate deep pass), a project-level `.qmllint.ini` with
+`ImportFailure=disable`/`UnqualifiedAccess=disable` fixes it with zero
+code changes — confirmed `qmllint` auto-discovers that file from any
+subdirectory under the project root, not just when invoked from the
+exact directory it lives in.
