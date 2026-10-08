@@ -55,10 +55,13 @@ One file per fact; see individual files for full content.
 - [reference_bash_backgrounded_function_ps_cmdline.md](reference_bash_backgrounded_function_ps_cmdline.md) — A backgrounded bash function's child shows the parent script's own cmdline in ps, not its own name
 - [reference_bash_subshell_ps_cmdline_retention.md](reference_bash_subshell_ps_cmdline_retention.md) — A backgrounded `( cmds ) &` subshell shows the parent script's argv in ps, not what's running inside
 - [reference_imagemagick_convert_deprecated.md](reference_imagemagick_convert_deprecated.md) — ImageMagick v7 deprecated `convert` — use `magick file.in file.out`
+- [reference_kde_frameworks_kdeglobals_theming.md](reference_kde_frameworks_kdeglobals_theming.md) — KDE Frameworks apps (Kate, Dolphin) theme from kdeglobals, not qt5ct/qt6ct's QPalette
+- [reference_lightdm_xsession_login_shell_env_scoping.md](reference_lightdm_xsession_login_shell_env_scoping.md) — LightDM's Xsession sources .bashrc via a login shell before a custom WM starts — scope session env vars with a launcher wrapper, not the WM's own autostart hook
 - [reference_ssh-session-testing-artifact.md](reference_ssh-session-testing-artifact.md) — A process spawned/restarted over SSH binds to the SSH session, not the target session — verify via /proc/PID/environ+cgroup
 - [reference_ssh_display_not_inherited.md](reference_ssh_display_not_inherited.md) — A GUI action script over bare SSH fails "could not connect to display" unless DISPLAY is exported explicitly
 - [reference_codeberg_conventions.md](reference_codeberg_conventions.md) — User hosts personal projects on Codeberg with a standard scripts/CLAUDE.md/memory bootstrap pattern
 - [reference_doom_theme_loading.md](reference_doom_theme_loading.md) — Where the user's Doom Emacs config lives and how it loads archboki-emacs-themes
+- [reference_firefox_titlebar_buttons_list_style_image.md](reference_firefox_titlebar_buttons_list_style_image.md) — Firefox's Linux window-control titlebar icons use list-style-image, not fill/color like other userChrome.css elements
 - [reference_fzf_tag_tiebreak_ranking.md](reference_fzf_tag_tiebreak_ranking.md) — A status tag on fzf candidates pushes exact matches down — need --nth AND --tiebreak=index together
 - [reference_pipeline_child_survives_parent_kill.md](reference_pipeline_child_survives_parent_kill.md) — Killing a tracked `cmd1 | while read` PID doesn't touch cmd1 — own the process group and kill the whole group
 - [reference_pkaction_shows_shipped_defaults_not_rules_overrides.md](reference_pkaction_shows_shipped_defaults_not_rules_overrides.md) — pkaction shows only shipped .policy defaults, not local .rules.d overrides — "implicit active: yes" isn't proof of no prompt
@@ -77,6 +80,7 @@ One file per fact; see individual files for full content.
 - [reference_qml_keys_beforeitem_blocks_bubbling.md](reference_qml_keys_beforeitem_blocks_bubbling.md) — A second ancestor Keys.onPressed can break nav relying on Keys.priority: BeforeItem — the two don't compose safely
 - [reference_qml_repeater_modeldata_property_declaration_collision.md](reference_qml_repeater_modeldata_property_declaration_collision.md) — Redeclaring `required property var modelData` per-delegate collides with a same-named component property, binds undefined
 - [reference_qt6_qml_tools_path.md](reference_qt6_qml_tools_path.md) — Real Qt6 QML tools (qmllint etc.) live at /usr/lib/qt6/bin/ — plain `qmllint` on PATH is Qt5's, silently fails
+- [reference_qt_custom_palette_needs_fusion_style.md](reference_qt_custom_palette_needs_fusion_style.md) — A custom qt5ct/qt6ct QPalette needs style=fusion to actually render — qt5ct-style/qt6ct-style aren't selectable, Kvantum ignores the palette
 - [reference_quickshell_process_write_race.md](reference_quickshell_process_write_race.md) — Process.write() no-ops before spawn, stdinEnabled doesn't reset between runs — races/hangs the child silently
 - [reference_repo_setup.md](reference_repo_setup.md) — Where this project is hosted and how the user publishes changes
 - [reference_scp_multifile_flattening.md](reference_scp_multifile_flattening.md) — scp with multiple sources from different dirs into one dest dir silently flattens every path to its basename
