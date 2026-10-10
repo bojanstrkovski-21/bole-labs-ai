@@ -40,6 +40,7 @@ One file per fact; see individual files for full content.
 - [project_dwm-quickshell.md](project_dwm-quickshell.md) — dwm-quickshell — parent dir wrapping a ChrisTitusTech dwm fork + Quickshell shell layer
 - [project_vm_staged_script_install.md](project_vm_staged_script_install.md) — dwm-quickshell VM deploy: 3 copies (live config, /usr/local/bin, in-tree checkout) must stay in sync or a rebuild reverts the fix
 - [project_dwm_quickshell_wifi_radio_manual_only.md](project_dwm_quickshell_wifi_radio_manual_only.md) — dwm-quickshell Wi-Fi radio is manual-only, not auto-managed — see quickshell-scripts/whatifs/wifi-radio-auto-management.md
+- [project_dwm_quickshell_editors_theming_phase.md](project_dwm_quickshell_editors_theming_phase.md) — Phase 3 (editor theming) complete: VS Code/Zed/Sublime/Geany/Xed/Pluma/Mousepad/Kate all covered in dwm-quickshell-theme
 - [project_gui_status.md](project_gui_status.md) — Dev state of the arch-boki-post-install GUI tool — done vs pending
 - [project-import-export.md](project-import-export.md) — Student Excel import/export feature — fields, routes, normalization
 - [project-kniga-za-posta.md](project-kniga-za-posta.md) — kniga-za-posta — postal package log web app (Flask + SQLite)
@@ -55,12 +56,16 @@ One file per fact; see individual files for full content.
 - [reference_bash_backgrounded_function_ps_cmdline.md](reference_bash_backgrounded_function_ps_cmdline.md) — A backgrounded bash function's child shows the parent script's own cmdline in ps, not its own name
 - [reference_bash_subshell_ps_cmdline_retention.md](reference_bash_subshell_ps_cmdline_retention.md) — A backgrounded `( cmds ) &` subshell shows the parent script's argv in ps, not what's running inside
 - [reference_imagemagick_convert_deprecated.md](reference_imagemagick_convert_deprecated.md) — ImageMagick v7 deprecated `convert` — use `magick file.in file.out`
-- [reference_kde_frameworks_kdeglobals_theming.md](reference_kde_frameworks_kdeglobals_theming.md) — KDE Frameworks apps (Kate, Dolphin) theme from kdeglobals, not qt5ct/qt6ct's QPalette
+- [reference_kde_frameworks_kdeglobals_theming.md](reference_kde_frameworks_kdeglobals_theming.md) — Kate's real persisting theme key is its own katerc [UiSettings] ColorScheme=, not kdeglobals alone — no plasma-integration needed
 - [reference_lightdm_xsession_login_shell_env_scoping.md](reference_lightdm_xsession_login_shell_env_scoping.md) — LightDM's Xsession sources .bashrc via a login shell before a custom WM starts — scope session env vars with a launcher wrapper, not the WM's own autostart hook
 - [reference_ssh-session-testing-artifact.md](reference_ssh-session-testing-artifact.md) — A process spawned/restarted over SSH binds to the SSH session, not the target session — verify via /proc/PID/environ+cgroup
 - [reference_ssh_display_not_inherited.md](reference_ssh_display_not_inherited.md) — A GUI action script over bare SSH fails "could not connect to display" unless DISPLAY is exported explicitly
 - [reference_codeberg_conventions.md](reference_codeberg_conventions.md) — User hosts personal projects on Codeberg with a standard scripts/CLAUDE.md/memory bootstrap pattern
+- [reference_dwm_startup_property_not_published_until_first_trigger.md](reference_dwm_startup_property_not_published_until_first_trigger.md) — dwm root-window property only published from an action handler reads as missing/zero until that action first fires
 - [reference_doom_theme_loading.md](reference_doom_theme_loading.md) — Where the user's Doom Emacs config lives and how it loads archboki-emacs-themes
+- [reference_vscode_extension_theme_requires_restart.md](reference_vscode_extension_theme_requires_restart.md) — VS Code extension-based themes need a full reload every switch; workbench.colorCustomizations applies live instead
+- [reference_json5_jsonc_tool_parsing_silent_noop.md](reference_json5_jsonc_tool_parsing_silent_noop.md) — Zed/Sublime/VS Code config files are JSONC by default; jq silently no-ops on them, use a brace-depth-aware text replacer instead
+- [reference_adw_gtk_theme_headerbar_background_shorthand.md](reference_adw_gtk_theme_headerbar_background_shorthand.md) — adw-gtk3-dark's headerbar uses the `background` shorthand (needs background-image:none override) and its main toolbar is `.primary-toolbar`, not `.toolbar`
 - [reference_firefox_titlebar_buttons_list_style_image.md](reference_firefox_titlebar_buttons_list_style_image.md) — Firefox's Linux window-control titlebar icons use list-style-image, not fill/color like other userChrome.css elements
 - [reference_fzf_tag_tiebreak_ranking.md](reference_fzf_tag_tiebreak_ranking.md) — A status tag on fzf candidates pushes exact matches down — need --nth AND --tiebreak=index together
 - [reference_pipeline_child_survives_parent_kill.md](reference_pipeline_child_survives_parent_kill.md) — Killing a tracked `cmd1 | while read` PID doesn't touch cmd1 — own the process group and kill the whole group
@@ -89,6 +94,7 @@ One file per fact; see individual files for full content.
 - [reference_text_elide_direction_matches_meaningful_part.md](reference_text_elide_direction_matches_meaningful_part.md) — Text.ElideLeft vs ElideRight must match which end carries the meaningful content, not a fixed default
 - [reference_unicode_pua_glyph_tool_calls.md](reference_unicode_pua_glyph_tool_calls.md) — PUA Unicode glyphs (Nerd Font codepoints) silently become empty strings via direct Edit/Write calls
 - [reference_webfetch_large_json_hallucination.md](reference_webfetch_large_json_hallucination.md) — WebFetch summarizing a large JSON file can return plausible but wrong values — verify by parsing directly
+- [reference_vscode_claude_code_terminal_relaunch_prompt.md](reference_vscode_claude_code_terminal_relaunch_prompt.md) — Claude Code's VSCode extension triggers a terminal-relaunch prompt every launch — fix via enablePersistentSessions:false + environmentChangesRelaunch:false
 - [reference_x11_hotkey_keysym_vs_keycode.md](reference_x11_hotkey_keysym_vs_keycode.md) — X11 hotkey daemons must grab/match by keycode not keysym — keysym matching breaks under a non-Latin layout
 - [reference_xdotool_raw_keycode_injection.md](reference_xdotool_raw_keycode_injection.md) — `xdotool key <letter>` is unreliable when the active layout lacks that letter — use raw keycode injection
 - [reference_xprop_window_type_uses_colon_not_equals.md](reference_xprop_window_type_uses_colon_not_equals.md) — xprop uses "PROP(WINDOW): value" (colon) not "=" for WINDOW-typed properties — an "="-only parser misses it
