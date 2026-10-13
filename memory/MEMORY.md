@@ -1,28 +1,27 @@
 # Global memory index
 
-Shared across all projects and all agent tools (Claude, Codex, Copilot).
-One file per fact; see individual files for full content.
+Shared across all projects/tools (Claude, Codex, Copilot). One file per fact.
 
-- [daemon_mode_display_detection.md](daemon_mode_display_detection.md) — packages auto-detecting display capability get it wrong under emacs --daemon (no frame yet) — check for a "server mode" override first
-- [elpaca_async_gotcha.md](elpaca_async_gotcha.md) — elpaca installs/activates packages async — code right after use-package (even in another package's :config) can run before deps are ready
+- [daemon_mode_display_detection.md](daemon_mode_display_detection.md) — packages auto-detecting display get it wrong under emacs --daemon — check "server mode"
+- [elpaca_async_gotcha.md](elpaca_async_gotcha.md) — elpaca installs packages async — code right after use-package can run before deps are ready
 - [feedback_approach.md](feedback_approach.md) — Preferences and corrections the user has given about how to work
-- [feedback_astro_webhome_iteration_style.md](feedback_astro_webhome_iteration_style.md) — Bojan directs astro-webhome CSS tweaks with exact pixel values, rapid iteration, expects literal application
-- [feedback_clean_up_completed_todos.md](feedback_clean_up_completed_todos.md) — astro-webhome: remove finished TODO.md lines and fix stale memory cross-refs immediately, don't just check them off
+- [feedback_astro_webhome_iteration_style.md](feedback_astro_webhome_iteration_style.md) — Bojan directs astro-webhome CSS tweaks with exact pixel values
+- [feedback_clean_up_completed_todos.md](feedback_clean_up_completed_todos.md) — astro-webhome: remove finished TODO.md lines, fix stale cross-refs now
 - [feedback_codeberg_pushes.md](feedback_codeberg_pushes.md) — User creates Codeberg repos and pushes/authenticates themselves, not Claude
 - [feedback_credit_palette_sources.md](feedback_credit_palette_sources.md) — Verify licensing and credit the original author when porting a third-party color palette
 - [feedback_git-security-discipline.md](feedback_git-security-discipline.md) — Never auto-git, confirm everything, never write secrets to a repo file
 - [feedback_omarchy_v4_only.md](feedback_omarchy_v4_only.md) — Researching basecamp/omarchy: only Omarchy 4+ ("Quattro") is Quickshell-based; v3 and earlier used waybar/hyprlock
 - [feedback_pkgbuild_pkgrel.md](feedback_pkgbuild_pkgrel.md) — Bump pkgrel (not pkgver) in Build-arch/PKGBUILD after syncing new upstream rofi commits
 - [feedback-preferences.md](feedback-preferences.md) — How this user likes to work and communicate
-- [feedback_scope_then_mirror_themes.md](feedback_scope_then_mirror_themes.md) — astro-webhome: default new work to the theme in discussion; wait for "do the other theme too" before porting
+- [feedback_scope_then_mirror_themes.md](feedback_scope_then_mirror_themes.md) — astro-webhome: default new work to the theme in discussion
 - [feedback_sync_project_memory_mirror.md](feedback_sync_project_memory_mirror.md) — astro-webhome mirrors Claude's memory at repo-root memory/ — update both copies on any change
 - [feedback-session-workflow.md](feedback-session-workflow.md) — User's start/end-session convention — implemented globally via ~/.agents/commands/
-- [feedback_testing-phase-no-live-touch.md](feedback_testing-phase-no-live-touch.md) — R&D/porting projects: never touch live system files outside the project dir while testing, however explicit the request
+- [feedback_testing-phase-no-live-touch.md](feedback_testing-phase-no-live-touch.md) — R&D/porting projects: never touch live system files outside the project dir while testing
 - [feedback_toml_over_json.md](feedback_toml_over_json.md) — Prefer TOML over JSON for hand-edited config/preset files this user maintains
-- [feedback_verb-matches-action-scope.md](feedback_verb-matches-action-scope.md) — Per-item batch instructions: "diff/compare/check it" = show findings only; "do/implement/port it" = apply changes
-- [feedback_verify_css_selectors_hit_real_dom.md](feedback_verify_css_selectors_hit_real_dom.md) — astro-webhome: trace the real DOM structure before claiming a CSS fix is done — a sibling-combinator once missed its target
+- [feedback_verb-matches-action-scope.md](feedback_verb-matches-action-scope.md) — Per-item: diff/check = findings only; implement = apply changes
+- [feedback_verify_css_selectors_hit_real_dom.md](feedback_verify_css_selectors_hit_real_dom.md) — astro-webhome: trace the real DOM before claiming a CSS fix done
 - [feedback-working-style.md](feedback-working-style.md) — Explain first then act; concise answers; confirm before file changes
-- [general_el_keymap_shorthand.md](general_el_keymap_shorthand.md) — general.el's `(COMMAND :wk "desc")` shorthand is commands-only — binding a keymap as a prefix needs explicit `:keymap`
+- [general_el_keymap_shorthand.md](general_el_keymap_shorthand.md) — general.el's `(COMMAND :wk "desc")` shorthand is commands-only; a keymap prefix needs `:keymap`
 - [global-working-agreement.md](global-working-agreement.md) — Confirm-first policy for Claude/Codex/Copilot in ~/.agents, plus session start/end git rules
 - [native_comp_warning_hang.md](native_comp_warning_hang.md) — emacsclient -c hang can be native-comp's warning-reporting bogging down under many harmless warnings, not an infinite loop
 - [project-archboki.md](project-archboki.md) — archboki-bash-improved — multi-distro bash config work compared against erik/chris reference configs
@@ -38,69 +37,72 @@ One file per fact; see individual files for full content.
 - [project-db-path.md](project-db-path.md) — DB_PATH must be absolute — relative path caused a silent wrong-database bug
 - [project_doom_vs_spacemacs.md](project_doom_vs_spacemacs.md) — Repo purpose/status for archboki-doom-emacs-project (Doom vs Spacemacs comparison)
 - [project_dwm-quickshell.md](project_dwm-quickshell.md) — dwm-quickshell — parent dir wrapping a ChrisTitusTech dwm fork + Quickshell shell layer
-- [project_vm_staged_script_install.md](project_vm_staged_script_install.md) — dwm-quickshell VM deploy: 3 copies (live config, /usr/local/bin, in-tree checkout) must stay in sync or a rebuild reverts the fix
-- [project_dwm_quickshell_wifi_radio_manual_only.md](project_dwm_quickshell_wifi_radio_manual_only.md) — dwm-quickshell Wi-Fi radio is manual-only, not auto-managed — see quickshell-scripts/whatifs/wifi-radio-auto-management.md
-- [project_dwm_quickshell_editors_theming_phase.md](project_dwm_quickshell_editors_theming_phase.md) — Phase 3 (editor theming) complete: VS Code/Zed/Sublime/Geany/Xed/Pluma/Mousepad/Kate all covered in dwm-quickshell-theme
+- [project_vm_staged_script_install.md](project_vm_staged_script_install.md) — dwm-quickshell VM deploy: 3 copies must stay in sync or a rebuild reverts it
+- [project_dwm_quickshell_wifi_radio_manual_only.md](project_dwm_quickshell_wifi_radio_manual_only.md) — dwm-quickshell Wi-Fi radio is manual-only
+- [project_dwm_quickshell_editors_theming_phase.md](project_dwm_quickshell_editors_theming_phase.md) — Phase 3 editor theming done: VSCode/Zed/Sublime/Geany/Xed/Kate
 - [project_gui_status.md](project_gui_status.md) — Dev state of the arch-boki-post-install GUI tool — done vs pending
 - [project-import-export.md](project-import-export.md) — Student Excel import/export feature — fields, routes, normalization
 - [project-kniga-za-posta.md](project-kniga-za-posta.md) — kniga-za-posta — postal package log web app (Flask + SQLite)
 - [project-ministries.md](project-ministries.md) — Ministries admin feature — table, routes, link to certificate form
 - [project-overview-arch-boki-logout.md](project-overview-arch-boki-logout.md) — What arch-boki-logout is, its architecture, key code location
 - [project-overview-svidetelstva.md](project-overview-svidetelstva.md) — What this project is, stack, directory roles, current DB state
-- [reference_argb_hex_alpha_byte_parsing.md](reference_argb_hex_alpha_byte_parsing.md) — A #RRGGBB-only contrast helper misparses #AARRGGBB — alpha read as red, red as green, green as blue
-- [reference_astro_webhome_visual_testing.md](reference_astro_webhome_visual_testing.md) — Screenshot-verify CSS via playwright-core+system Chromium; astro dev binds IPv6-only, use `npm run preview --host 127.0.0.1`
-- [reference_chris_titus_website_repo.md](reference_chris_titus_website_repo.md) — astro-webhome: sibling ChrisTitusTech/website worth borrowing _headers/reduced-motion CSS/color-scheme hint from
+- [reference_argb_hex_alpha_byte_parsing.md](reference_argb_hex_alpha_byte_parsing.md) — A #RRGGBB-only contrast helper misparses #AARRGGBB (alpha/channel shift)
+- [reference_astro_webhome_visual_testing.md](reference_astro_webhome_visual_testing.md) — Screenshot-verify CSS via playwright-core+Chromium; astro is IPv6-only
+- [reference_chris_titus_website_repo.md](reference_chris_titus_website_repo.md) — astro-webhome: sibling ChrisTitusTech/website worth borrowing _headers CSS from
 - [reference_awk_func_reserved_word.md](reference_awk_func_reserved_word.md) — awk's `func` is reserved (= function) — using it as a variable name gives a cryptic syntax error
-- [reference_backgrounded_child_inherits_parent_process_group.md](reference_backgrounded_child_inherits_parent_process_group.md) — `foo &` inherits the parent's process group unless setsid'd — a group-kill cleanup can hit it by accident
-- [reference_bluetoothctl_hangs_without_service.md](reference_bluetoothctl_hangs_without_service.md) — bluetoothctl blocks forever with bluetooth.service inactive — its --timeout only bounds a scan, not the D-Bus handshake; wrap every call in external timeout
-- [reference_bash_backgrounded_function_ps_cmdline.md](reference_bash_backgrounded_function_ps_cmdline.md) — A backgrounded bash function's child shows the parent script's own cmdline in ps, not its own name
-- [reference_bash_subshell_ps_cmdline_retention.md](reference_bash_subshell_ps_cmdline_retention.md) — A backgrounded `( cmds ) &` subshell shows the parent script's argv in ps, not what's running inside
+- [reference_backgrounded_child_inherits_parent_process_group.md](reference_backgrounded_child_inherits_parent_process_group.md) — `foo &` inherits the parent's pgroup unless setsid'd
+- [reference_bluetoothctl_hangs_without_service.md](reference_bluetoothctl_hangs_without_service.md) — bluetoothctl blocks forever if bluetooth.service is inactive
+- [reference_bash_backgrounded_function_ps_cmdline.md](reference_bash_backgrounded_function_ps_cmdline.md) — A backgrounded bash fn's child shows the parent's own cmdline in ps
+- [reference_bash_subshell_ps_cmdline_retention.md](reference_bash_subshell_ps_cmdline_retention.md) — A backgrounded `( cmds ) &` subshell shows the parent's own argv
 - [reference_imagemagick_convert_deprecated.md](reference_imagemagick_convert_deprecated.md) — ImageMagick v7 deprecated `convert` — use `magick file.in file.out`
-- [reference_kde_frameworks_kdeglobals_theming.md](reference_kde_frameworks_kdeglobals_theming.md) — Kate's real persisting theme key is its own katerc [UiSettings] ColorScheme=, not kdeglobals alone — no plasma-integration needed
-- [reference_lightdm_xsession_login_shell_env_scoping.md](reference_lightdm_xsession_login_shell_env_scoping.md) — LightDM's Xsession sources .bashrc via a login shell before a custom WM starts — scope session env vars with a launcher wrapper, not the WM's own autostart hook
-- [reference_ssh-session-testing-artifact.md](reference_ssh-session-testing-artifact.md) — A process spawned/restarted over SSH binds to the SSH session, not the target session — verify via /proc/PID/environ+cgroup
-- [reference_ssh_display_not_inherited.md](reference_ssh_display_not_inherited.md) — A GUI action script over bare SSH fails "could not connect to display" unless DISPLAY is exported explicitly
+- [reference_kde_frameworks_kdeglobals_theming.md](reference_kde_frameworks_kdeglobals_theming.md) — Kate's real theme key is katerc's own ColorScheme=, not kdeglobals alone
+- [reference_lightdm_xsession_login_shell_env_scoping.md](reference_lightdm_xsession_login_shell_env_scoping.md) — LightDM sources .bashrc before the WM starts — use a wrapper
+- [reference_ssh-session-testing-artifact.md](reference_ssh-session-testing-artifact.md) — A process spawned over SSH binds to the SSH session, not the target
+- [reference_ssh_display_not_inherited.md](reference_ssh_display_not_inherited.md) — A GUI script over SSH fails without DISPLAY exported
 - [reference_codeberg_conventions.md](reference_codeberg_conventions.md) — User hosts personal projects on Codeberg with a standard scripts/CLAUDE.md/memory bootstrap pattern
-- [reference_dwm_startup_property_not_published_until_first_trigger.md](reference_dwm_startup_property_not_published_until_first_trigger.md) — dwm root-window property only published from an action handler reads as missing/zero until that action first fires
+- [reference_dwm_startup_property_not_published_until_first_trigger.md](reference_dwm_startup_property_not_published_until_first_trigger.md) — dwm property set by an action handler reads zero until fired
 - [reference_doom_theme_loading.md](reference_doom_theme_loading.md) — Where the user's Doom Emacs config lives and how it loads archboki-emacs-themes
-- [reference_vscode_extension_theme_requires_restart.md](reference_vscode_extension_theme_requires_restart.md) — VS Code extension-based themes need a full reload every switch; workbench.colorCustomizations applies live instead
-- [reference_json5_jsonc_tool_parsing_silent_noop.md](reference_json5_jsonc_tool_parsing_silent_noop.md) — Zed/Sublime/VS Code config files are JSONC by default; jq silently no-ops on them, use a brace-depth-aware text replacer instead
-- [reference_adw_gtk_theme_headerbar_background_shorthand.md](reference_adw_gtk_theme_headerbar_background_shorthand.md) — adw-gtk3-dark's headerbar uses the `background` shorthand (needs background-image:none override) and its main toolbar is `.primary-toolbar`, not `.toolbar`
-- [reference_firefox_titlebar_buttons_list_style_image.md](reference_firefox_titlebar_buttons_list_style_image.md) — Firefox's Linux window-control titlebar icons use list-style-image, not fill/color like other userChrome.css elements
-- [reference_forked_child_env_export_never_reaches_parent.md](reference_forked_child_env_export_never_reaches_parent.md) — A script forked AS A CHILD of a long-running process can never propagate an export back to that parent — fix at the pre-exec wrapper, not the child
-- [reference_wezterm_split_config_reload_watches_entrypoint_only.md](reference_wezterm_split_config_reload_watches_entrypoint_only.md) — wezterm's automatically_reload_config only watches the directly-loaded entrypoint, never a file reached only via require()
-- [reference_ptyxis_palette_enum_not_custom_colors.md](reference_ptyxis_palette_enum_not_custom_colors.md) — Ptyxis's palette GSettings key only selects one of ~200 built-in named presets, never arbitrary custom hex colors
+- [reference_vscode_extension_theme_requires_restart.md](reference_vscode_extension_theme_requires_restart.md) — VS Code extension themes need a full reload; colorCustomizations live
+- [reference_json5_jsonc_tool_parsing_silent_noop.md](reference_json5_jsonc_tool_parsing_silent_noop.md) — Zed/Sublime/VSCode configs are JSONC; jq silently no-ops
+- [reference_adw_gtk_theme_headerbar_background_shorthand.md](reference_adw_gtk_theme_headerbar_background_shorthand.md) — adw-gtk3-dark headerbar uses the background shorthand (needs -image:none)
+- [reference_firefox_titlebar_buttons_list_style_image.md](reference_firefox_titlebar_buttons_list_style_image.md) — Firefox's titlebar icons use list-style-image, not fill/color
+- [reference_forked_child_env_export_never_reaches_parent.md](reference_forked_child_env_export_never_reaches_parent.md) — A script forked as a CHILD can't propagate env vars upward
+- [reference_wezterm_split_config_reload_watches_entrypoint_only.md](reference_wezterm_split_config_reload_watches_entrypoint_only.md) — wezterm auto-reload watches only its entrypoint, not require()'d files
+- [reference_ptyxis_palette_enum_not_custom_colors.md](reference_ptyxis_palette_enum_not_custom_colors.md) — Ptyxis palette GSettings key only selects a built-in preset
 - [reference_fzf_tag_tiebreak_ranking.md](reference_fzf_tag_tiebreak_ranking.md) — A status tag on fzf candidates pushes exact matches down — need --nth AND --tiebreak=index together
-- [reference_pipeline_child_survives_parent_kill.md](reference_pipeline_child_survives_parent_kill.md) — Killing a tracked `cmd1 | while read` PID doesn't touch cmd1 — own the process group and kill the whole group
-- [reference_pkaction_shows_shipped_defaults_not_rules_overrides.md](reference_pkaction_shows_shipped_defaults_not_rules_overrides.md) — pkaction shows only shipped .policy defaults, not local .rules.d overrides — "implicit active: yes" isn't proof of no prompt
+- [reference_pipeline_child_survives_parent_kill.md](reference_pipeline_child_survives_parent_kill.md) — Killing `cmd1 | while read`'s PID doesn't touch cmd1 — kill the group
+- [reference_pkaction_shows_shipped_defaults_not_rules_overrides.md](reference_pkaction_shows_shipped_defaults_not_rules_overrides.md) — pkaction shows shipped .policy defaults
 - [reference_pkill_comm_15char_truncation.md](reference_pkill_comm_15char_truncation.md) — pkill/pgrep -x matches nothing past 15 chars — Linux truncates comm to 15+null
-- [reference_pacman_partial_upgrade_conflict.md](reference_pacman_partial_upgrade_conflict.md) — A targeted pacman/paru -S can refuse to install over an ABI-bump vs. a stale local dependent — a partial-upgrade trap, not real breakage
-- [reference_posix_sh_function_not_inherited_by_child_shc.md](reference_posix_sh_function_not_inherited_by_child_shc.md) — A POSIX sh function isn't visible inside a detached `sh -c` child — dash has no export -f
-- [reference_posix_sh_function_scope_collision.md](reference_posix_sh_function_scope_collision.md) — POSIX shell functions share variable scope by default — a helper's loop var can clobber the caller's
-- [reference_make_dry_run_shell_syntax_blindspot.md](reference_make_dry_run_shell_syntax_blindspot.md) — `make -n` only prints recipe lines, never executes — a shell-syntax bug (unescaped @echo parens) is invisible to it
-- [reference_shell_single_quote_apostrophe_comment.md](reference_shell_single_quote_apostrophe_comment.md) — An apostrophe in a comment inside a single-quoted embedded script (awk/sed one-liner) prematurely closes the shell's quote and breaks it
-- [reference_hardcoded_system_path_untestable_side_effect.md](reference_hardcoded_system_path_untestable_side_effect.md) — A script's hardcoded real system path with no override can't be test-isolated if that real resource exists on the dev machine — a "not found" test case can drive a real running instance instead
-- [reference_hover_handler_privileged_action.md](reference_hover_handler_privileged_action.md) — A passive hover handler triggering a privileged action (e.g. forced network rescan) can pop an auth dialog from mere navigation
-- [reference_noclobber_seed_rename_migration_gap.md](reference_noclobber_seed_rename_migration_gap.md) — "Seed only if missing" is correct for fresh installs but leaves stale content when the deploy path itself gets renamed
+- [reference_pacman_partial_upgrade_conflict.md](reference_pacman_partial_upgrade_conflict.md) — pacman/paru -S can refuse an ABI-bump vs a stale dependent (upgrade trap)
+- [reference_posix_sh_function_not_inherited_by_child_shc.md](reference_posix_sh_function_not_inherited_by_child_shc.md) — A POSIX sh fn isn't visible in a detached `sh -c` child (dash)
+- [reference_posix_sh_function_scope_collision.md](reference_posix_sh_function_scope_collision.md) — POSIX shell fns share variable scope — a helper's loop var can clobber the caller's
+- [reference_make_dry_run_shell_syntax_blindspot.md](reference_make_dry_run_shell_syntax_blindspot.md) — `make -n` only prints recipe lines — a shell-syntax bug like @echo parens hides
+- [reference_shell_single_quote_apostrophe_comment.md](reference_shell_single_quote_apostrophe_comment.md) — An apostrophe in a single-quoted comment closes it early
+- [reference_hardcoded_system_path_untestable_side_effect.md](reference_hardcoded_system_path_untestable_side_effect.md) — A hardcoded path with no override can't be isolated
+- [reference_hover_handler_privileged_action.md](reference_hover_handler_privileged_action.md) — A passive hover handler triggering a privileged action can pop an auth prompt
+- [reference_noclobber_seed_rename_migration_gap.md](reference_noclobber_seed_rename_migration_gap.md) — "Seed only if missing" leaves stale content when the deploy path is renamed
 - [reference_project-templates.md](reference_project-templates.md) — Where the user's project-bootstrap conventions/templates live (links.txt precedent repos)
-- [reference_qml_child_id_not_root_property.md](reference_qml_child_id_not_root_property.md) — A QML child's id isn't a property of its root — root.childId is undefined, a silent TypeError
-- [reference_qml_content_embedding_loses_implicit_load_trigger.md](reference_qml_content_embedding_loses_implicit_load_trigger.md) — Extracting a popup into a reusable *Content.qml drops the old open()'s implicit refresh — give the model its own Component.onCompleted
-- [reference_qml_keys_beforeitem_blocks_bubbling.md](reference_qml_keys_beforeitem_blocks_bubbling.md) — A second ancestor Keys.onPressed can break nav relying on Keys.priority: BeforeItem — the two don't compose safely
-- [reference_qml_repeater_modeldata_property_declaration_collision.md](reference_qml_repeater_modeldata_property_declaration_collision.md) — Redeclaring `required property var modelData` per-delegate collides with a same-named component property, binds undefined
+- [reference_qml_child_id_not_root_property.md](reference_qml_child_id_not_root_property.md) — A QML child's id isn't a property of its root (root.childId is undefined)
+- [reference_qml_content_embedding_loses_implicit_load_trigger.md](reference_qml_content_embedding_loses_implicit_load_trigger.md) — Extracting a popup into *Content.qml drops open()'s implicit refresh
+- [reference_qml_keys_beforeitem_blocks_bubbling.md](reference_qml_keys_beforeitem_blocks_bubbling.md) — A 2nd ancestor Keys.onPressed can break nav via Keys.priority: BeforeItem
+- [reference_qml_repeater_modeldata_property_declaration_collision.md](reference_qml_repeater_modeldata_property_declaration_collision.md) — Redeclaring required property modelData per-delegate collides with a same prop
 - [reference_qt6_qml_tools_path.md](reference_qt6_qml_tools_path.md) — Real Qt6 QML tools (qmllint etc.) live at /usr/lib/qt6/bin/ — plain `qmllint` on PATH is Qt5's, silently fails
-- [reference_qt_custom_palette_needs_fusion_style.md](reference_qt_custom_palette_needs_fusion_style.md) — A custom qt5ct/qt6ct QPalette needs style=fusion to actually render — qt5ct-style/qt6ct-style aren't selectable, Kvantum ignores the palette
-- [reference_quickshell_process_write_race.md](reference_quickshell_process_write_race.md) — Process.write() no-ops before spawn, stdinEnabled doesn't reset between runs — races/hangs the child silently
+- [reference_qt_custom_palette_needs_fusion_style.md](reference_qt_custom_palette_needs_fusion_style.md) — qt5ct/qt6ct QPalette needs style=fusion; Kvantum ignores it
+- [reference_quickshell_process_write_race.md](reference_quickshell_process_write_race.md) — Process.write() no-ops before spawn, stdinEnabled doesn't reset between runs
 - [reference_repo_setup.md](reference_repo_setup.md) — Where this project is hosted and how the user publishes changes
-- [reference_scp_multifile_flattening.md](reference_scp_multifile_flattening.md) — scp with multiple sources from different dirs into one dest dir silently flattens every path to its basename
-- [reference_self_signal_inside_own_trap_recurses.md](reference_self_signal_inside_own_trap_recurses.md) — Signaling yourself from inside that signal's own bash trap recurses forever — can SIGSEGV the process
-- [reference_systemd_abandoned_session_scope.md](reference_systemd_abandoned_session_scope.md) — An abandoned session-N.scope has no active stop job — loginctl terminate-session can't touch it, use systemctl stop directly
-- [reference_text_elide_direction_matches_meaningful_part.md](reference_text_elide_direction_matches_meaningful_part.md) — Text.ElideLeft vs ElideRight must match which end carries the meaningful content, not a fixed default
-- [reference_unicode_pua_glyph_tool_calls.md](reference_unicode_pua_glyph_tool_calls.md) — PUA Unicode glyphs (Nerd Font codepoints) silently become empty strings via direct Edit/Write calls
-- [reference_webfetch_large_json_hallucination.md](reference_webfetch_large_json_hallucination.md) — WebFetch summarizing a large JSON file can return plausible but wrong values — verify by parsing directly
-- [reference_vscode_claude_code_terminal_relaunch_prompt.md](reference_vscode_claude_code_terminal_relaunch_prompt.md) — Claude Code's VSCode extension triggers a terminal-relaunch prompt every launch — fix via enablePersistentSessions:false + environmentChangesRelaunch:false
-- [reference_x11_hotkey_keysym_vs_keycode.md](reference_x11_hotkey_keysym_vs_keycode.md) — X11 hotkey daemons must grab/match by keycode not keysym — keysym matching breaks under a non-Latin layout
-- [reference_xdotool_raw_keycode_injection.md](reference_xdotool_raw_keycode_injection.md) — `xdotool key <letter>` is unreliable when the active layout lacks that letter — use raw keycode injection
-- [reference_xprop_window_type_uses_colon_not_equals.md](reference_xprop_window_type_uses_colon_not_equals.md) — xprop uses "PROP(WINDOW): value" (colon) not "=" for WINDOW-typed properties — an "="-only parser misses it
+- [reference_scp_multifile_flattening.md](reference_scp_multifile_flattening.md) — scp with multiple sources into one dest dir flattens each to its basename
+- [reference_self_signal_inside_own_trap_recurses.md](reference_self_signal_inside_own_trap_recurses.md) — Signaling yourself inside its own bash trap recurses forever (can SIGSEGV)
+- [reference_systemd_abandoned_session_scope.md](reference_systemd_abandoned_session_scope.md) — An abandoned session-N.scope has no stop job — use systemctl, not loginctl
+- [reference_text_elide_direction_matches_meaningful_part.md](reference_text_elide_direction_matches_meaningful_part.md) — Text.ElideLeft vs ElideRight must match the meaningful text end
+- [reference_unicode_pua_glyph_tool_calls.md](reference_unicode_pua_glyph_tool_calls.md) — PUA Unicode glyphs (Nerd Font) become empty strings via direct Edit/Write calls
+- [reference_webfetch_large_json_hallucination.md](reference_webfetch_large_json_hallucination.md) — WebFetch summarizing a large JSON file can return plausible but wrong values
+- [reference_vscode_claude_code_terminal_relaunch_prompt.md](reference_vscode_claude_code_terminal_relaunch_prompt.md) — Claude Code's VSCode ext prompts terminal relaunch — enablePersistentSessions
+- [reference_quickshell_linux_only_no_windows.md](reference_quickshell_linux_only_no_windows.md) — Quickshell has no Windows port — cross-platform needs rule it out entirely
+- [reference_picom_class_g_matches_wm_class_class_field_not_instance.md](reference_picom_class_g_matches_wm_class_class_field_not_instance.md) — picom's class_g matches WM_CLASS CLASS field, not instance
+- [reference_ghostty_quit_after_last_window_closed_delay.md](reference_ghostty_quit_after_last_window_closed_delay.md) — Ghostty cold-exits on last-window-close by default (unset quit-delay)
+- [reference_x11_hotkey_keysym_vs_keycode.md](reference_x11_hotkey_keysym_vs_keycode.md) — X11 hotkey daemons must grab/match by keycode, not keysym — breaks under a non-Latin layout
+- [reference_xdotool_raw_keycode_injection.md](reference_xdotool_raw_keycode_injection.md) — `xdotool key <letter>` fails when the layout lacks that letter — use raw keycode
+- [reference_xprop_window_type_uses_colon_not_equals.md](reference_xprop_window_type_uses_colon_not_equals.md) — xprop uses colon (not =) for WINDOW-typed props
 - [reference-push-sh-branch-detection-bug.md](reference-push-sh-branch-detection-bug.md) — push.sh's grep-on-URL check silently skips push when the repo name lacks "main"/"master"
 - [rofi-appgrid-project.md](rofi-appgrid-project.md) — Status/pointer for rofi-appgrid — a rofi theme for a personal drun-categories fork
 - [session_log.md](session_log.md) — Running log of work sessions on arch-boki-logout, newest first
