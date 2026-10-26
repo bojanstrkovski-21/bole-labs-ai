@@ -124,3 +124,5 @@ Shared across all projects/tools (Claude, Codex, Copilot). One file per fact.
 - [reference_quickshell_children_inherit_sigchld_ignored.md](reference_quickshell_children_inherit_sigchld_ignored.md) — Quickshell children inherit SIGCHLD ignored, so paru fails with ECHILD; use env --default-signal=CHLD
 - [reference_screen_recording_default_output_silent_on_other_sink.md](reference_screen_recording_default_output_silent_on_other_sink.md) — Recording default_output is silent when sound plays on another sink; hidden-tag windows record fine
 - [reference_set_e_exit_code_capture_needs_or.md](reference_set_e_exit_code_capture_needs_or.md) — Under set -e `cmd; rc=$?` exits first; use `cmd || rc=$?`
+- [reference_xdg_current_desktop_hardcode_overrides_session_name.md](reference_xdg_current_desktop_hardcode_overrides_session_name.md) — fastfetch shows a stale WM name when ~/.xprofile/environment.d hard-sets XDG_CURRENT_DESKTOP; pick it from DESKTOP_SESSION
+- [reference_codeberg_relative_href_not_rewritten.md](reference_codeberg_relative_href_not_rewritten.md) — Codeberg README: relative <a href> 404s while <img src> works; use absolute /raw/branch/main/ links
