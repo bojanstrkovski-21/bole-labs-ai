@@ -28,3 +28,5 @@ pages, check the branch/tag/date first (`quattro` branch, v4.x releases) and
 disregard anything describing waybar, hyprlock, mako, walker, or swaybg —
 those are pre-v4 and retired. Prefer their `quattro` branch source directly
 over general web search results, which often surface older v3 docs first.
+
+**Update 2026-11-07:** the repository moved: `basecamp/omarchy` now redirects to **`omacom/omarchy`** (MIT; default branch `quattro`; tags `v4.x`, latest read was `v4.5.0` = commit `ac2690c`). Pin reads to a tag. Its own agent guides are in the repo: `AGENTS.md` (+ `CLAUDE.md` = `@AGENTS.md`), `agents/skills/*.md` (motion, shell-dev, visual-verification, migrations, acceptance-tests) and `default/agents/skills/{omarchy,omarchy-app,diagnose-crash}/`. The `basecamp` org instead holds 37signals product skills (`house-skills`, `skills`), not Omarchy. Our `boki-omarchy` skill is a v4.5.0 snapshot; see [[feedback_boki_prefix_for_colliding_skill_names]].

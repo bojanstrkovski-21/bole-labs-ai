@@ -65,3 +65,5 @@ a deliberate deep pass), a project-level `.qmllint.ini` with
 code changes — confirmed `qmllint` auto-discovers that file from any
 subdirectory under the project root, not just when invoked from the
 exact directory it lives in.
+
+**Update 2026-11-07 (Qt 6.12.0 now; verified with controls):** (1) `/usr/bin/qml` is the Qt 5 runner too: on Qt 6 QML it prints only `qml: Did not load any objects, exiting.` (exit 2); use `qml6` (`/usr/bin/qml6 -> /usr/lib/qt6/bin/qml`). (2) The bare `qmllint` PATH trap bit again: I reported `qmllint clean` on files I had edited because the Qt 5 binary printed nothing. An empty lint is only a pass if a deliberately broken control file is flagged by the same binary (`/usr/lib/qt6/bin/qmllint` flags `Expected token ';' [syntax]`). (3) The `quickshell-qmllint` helper now prefers Qt 6 locations and skips any `qmllint 1.x`; run on the 2026-10-23 `ClickAwayPopup` with the current `DrawerWindow` it reports `Could not find property "anchorX"/"anchorY"/"screenWidth" [missing-property]`, and it is silent on a consistent tree. That makes it a usable pre-deploy gate, see [[feedback_diff_whole_config_before_partial_deploy]].

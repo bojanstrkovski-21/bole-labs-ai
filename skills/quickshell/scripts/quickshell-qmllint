@@ -59,8 +59,15 @@ find_qmllint() {
 		return 0
 	fi
 
-	for cmd in qmllint-qt6 qmllint /usr/lib64/qt6/bin/qmllint /usr/lib/qt6/bin/qmllint; do
+	# Qt 6 locations first, bare `qmllint` last: on distros where the Qt 5
+	# package owns /usr/bin/qmllint (reports "qmllint 1.x"), that binary exits 255
+	# with no output on Qt 6 / Quickshell QML, which looks exactly like a clean
+	# lint. Skip any candidate that reports itself as 1.x.
+	for cmd in qmllint-qt6 qmllint6 /usr/lib64/qt6/bin/qmllint /usr/lib/qt6/bin/qmllint qmllint; do
 		if command -v "$cmd" >/dev/null 2>&1; then
+			case $("$cmd" --version 2>/dev/null) in
+			*"qmllint 1."*) continue ;;
+			esac
 			printf '%s\n' "$cmd"
 			return 0
 		fi

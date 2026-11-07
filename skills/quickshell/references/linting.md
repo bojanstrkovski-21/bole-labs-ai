@@ -38,6 +38,36 @@ It:
 - creates temporary `qmldir` files and symlinks for local QML types;
 - sets `QMLLS_BUILD_DIRS` and `QML_IMPORT_PATH` for the lint process.
 
+## An Empty Result Is Not A Pass
+
+On Arch (and any distro where the Qt 5 package owns `/usr/bin/qmllint`) the bare
+`qmllint` reports `qmllint 1.x` and exits 255 with **no output** on Qt 6 /
+Quickshell QML, which looks identical to a clean lint. The helper now prefers
+`qmllint-qt6`, `qmllint6`, and the `/usr/lib*/qt6/bin/qmllint` paths, and skips
+any candidate that reports itself as 1.x. Even so, prove the tool works before
+trusting silence: run it once on a file you know is broken (for example a
+missing `}` or an assignment to a property the base type lacks) and confirm it
+reports it.
+
+## Pre-Deploy Check For A Live Config
+
+Before copying QML into a running shell, build the tree that will exist after the
+deploy (the live config plus every file you are about to copy) and lint every
+changed file against it:
+
+```sh
+"$quickshell_skill_dir/scripts/quickshell-qmllint" --root /path/to/post-deploy-tree \
+  drawer/DrawerWindow.qml core/ClickAwayPopup.qml
+```
+
+Treat `[missing-property]` and `[unresolved-type]` as blockers. On 2026-11-07 the
+helper reported `Could not find property "anchorX"/"anchorY"/"screenWidth"
+[missing-property]` for a drawer file deployed without its newer base component,
+the exact mismatch that made a live reload fail and leave the old config running.
+It is silent on a consistent tree. After deploying, read the log by instance or
+pid (`quickshell log -i <id>`), because the plain form matches the display string
+literally.
+
 ## Manual Pattern
 
 Use this if the helper needs adaptation:

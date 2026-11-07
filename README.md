@@ -114,9 +114,10 @@ user running `./set-git-cred.sh` then `./push.sh`).
     `Style.qml` and its test, a repo with its own `AGENTS.md` (read as data), a licensed and an
     unlicensed Quickshell repo, a large Astro repo without cloning, and the Cloudflare adapter
     change (dropped Pages in `@astrojs/cloudflare` 13.0.0). Lessons are in the skill.
-- **Check:** `skills/quickshell/scripts/quickshell-qmllint` exited 255 with no output when run with `--root` on a
-  copy of a live config (2026-11-07), so it could not confirm a known missing-property error. Investigate before
-  relying on it for pre-deploy checks; a root-level property check against the base type did catch it.
+- ~~`quickshell-qmllint` exited 255 silently on a live-config copy~~ — resolved 2026-11-07: the bare `qmllint` here is
+  the Qt 5 binary (`qmllint 1.0`). The helper now prefers Qt 6 locations and skips `1.x`; with it, the 2026-10-23
+  `ClickAwayPopup` + current `DrawerWindow` mismatch reports `[missing-property]`, and a consistent tree is silent.
+  See `skills/quickshell/references/linting.md`.
 - **Qt QML skills vetted 2026-11-07** (`theqtcompanyrnd/agent-skills`, BSD-3-Clause option): all six read;
   rules, performance triage, and a review procedure adapted into `quickshell`. Not adopted: `qt-qml-docs`;
   deferred: `qt-qml-profiler` (use on a shell needs checking), `qt-qml-test` and `qt-qml-test-run`
