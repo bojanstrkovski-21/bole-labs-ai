@@ -1,6 +1,14 @@
-# Rules control which commands Codex may run outside the sandbox. Behavioral
-# expectations belong in AGENTS.md. Do not blanket-allow shells, wrappers, or
-# tools that can hide arbitrary commands.
+# Command rules for Codex (Starlark prefix_rule, see
+# https://developers.openai.com/codex/rules). They decide which commands may run
+# outside the sandbox: allow runs silently, prompt asks every time, forbidden
+# blocks. When several rules match, the strictest wins (forbidden > prompt >
+# allow). Behavior rules live in AGENTS.md; these enforce the git and
+# authentication policy from it.
+#
+# Prefix rules match the start of a command only, so a flag placed later
+# (git push origin main --force) is not matched by the force-push rule. Every
+# push still prompts, and AGENTS.md forbids force pushes.
+# Do not blanket-allow shells or wrappers that can hide arbitrary commands.
 
 # Read-only file, text, and process inspection.
 prefix_rule(
@@ -21,7 +29,7 @@ prefix_rule(
         "pgrep",
     ]],
     decision="allow",
-    match=["rg --files", "grep -n pattern file.txt", "ps"],
+    match=["rg --files", "grep -n pattern file.txt", "ps", "ls -la"],
     not_match=["find . -delete", "bash -lc 'rg --files'"],
 )
 
@@ -37,49 +45,55 @@ prefix_rule(
         "ls-tree",
     ]],
     decision="allow",
-    match=["git status", "git diff --check", "git show HEAD"],
+    match=["git status", "git diff --check", "git show HEAD", "git log --oneline"],
     not_match=["git push", "git reset --hard"],
 )
 
-# Read-only GitHub inspection. Mutating subcommands are handled separately.
+# Anything that creates or changes history, branches, tags, remotes, or talks
+# to a remote needs an explicit ask each time.
 prefix_rule(
-    pattern=["gh", "pr", ["view", "list", "checks", "diff", "status"]],
-    decision="allow",
-    match=["gh pr view 123", "gh pr checks 123"],
-    not_match=["gh pr create", "gh pr merge 123"],
+    pattern=["git", [
+        "init",
+        "commit",
+        "push",
+        "pull",
+        "fetch",
+        "branch",
+        "tag",
+        "remote",
+        "checkout",
+        "switch",
+        "merge",
+        "rebase",
+        "stash",
+        "cherry-pick",
+        "revert",
+        "am",
+        "apply",
+    ]],
+    decision="prompt",
+    justification="Git state changes and remote access need an explicit request.",
+    match=[
+        "git init",
+        "git commit -m message",
+        "git push origin main",
+        "git tag v1.0",
+        "git remote add origin url",
+        "git checkout -b topic",
+    ],
+    not_match=["git status", "git diff", "git log"],
 )
 
+# Never rewrite remote history.
 prefix_rule(
-    pattern=["gh", "issue", ["view", "list", "status"]],
-    decision="allow",
-    match=["gh issue view 123", "gh issue list"],
-    not_match=["gh issue create", "gh issue close 123"],
-)
-
-prefix_rule(
-    pattern=["gh", "repo", ["view", "list"]],
-    decision="allow",
-    match=["gh repo view owner/repo", "gh repo list owner"],
-    not_match=["gh repo delete owner/repo"],
-)
-
-prefix_rule(
-    pattern=["gh", "run", ["view", "list", "watch"]],
-    decision="allow",
-    match=["gh run view 123", "gh run list"],
-    not_match=["gh run cancel 123", "gh run rerun 123"],
-)
-
-# Repository deletion is never an incidental development action.
-prefix_rule(
-    pattern=["gh", "repo", "delete"],
+    pattern=["git", "push", ["--force", "-f", "--force-with-lease", "--force-if-includes"]],
     decision="forbidden",
-    justification="Delete repositories manually after verifying the exact target.",
-    match=["gh repo delete owner/repo --yes"],
-    not_match=["gh repo view owner/repo"],
+    justification="Force-pushing is never done by the agent. Perform it manually after verifying the remote target.",
+    match=["git push --force", "git push -f", "git push --force-with-lease"],
+    not_match=["git push", "git push origin feature"],
 )
 
-# Destructive local Git cleanup is blocked. Use focused, recoverable changes.
+# Destructive local cleanup is blocked in favor of focused, reversible edits.
 prefix_rule(
     pattern=["git", "reset", "--hard"],
     decision="forbidden",
@@ -91,17 +105,84 @@ prefix_rule(
 prefix_rule(
     pattern=["git", "clean"],
     decision="forbidden",
-    justification="Inspect and remove exact generated files instead of cleaning broadly.",
+    justification="Inspect and remove the exact generated files instead of cleaning broadly.",
     match=["git clean -fd", "git clean -fdx"],
     not_match=["git status --short"],
 )
 
-# Force-pushing rewrites remote history. Normal authorized pushes remain
-# available because they do not match this rule.
+# Authentication and credential handling stay with the user: no auth status
+# checks, credential helpers, or SSH agent commands, even to troubleshoot.
 prefix_rule(
-    pattern=["git", "push", ["--force", "-f", "--force-with-lease"]],
+    pattern=["gh", "auth"],
     decision="forbidden",
-    justification="Push normally or perform the history rewrite manually after verifying the remote target.",
-    match=["git push --force", "git push -f", "git push --force-with-lease"],
-    not_match=["git push", "git push origin feature"],
+    justification="Authentication is handled by the user. If a push or API call is blocked on auth, report it and stop.",
+    match=["gh auth status", "gh auth login", "gh auth token"],
+    not_match=["gh pr view 123"],
+)
+
+prefix_rule(
+    pattern=["git", "credential"],
+    decision="forbidden",
+    justification="Credential helpers are handled by the user, not the agent.",
+    match=["git credential fill", "git credential approve"],
+    not_match=["git status"],
+)
+
+prefix_rule(
+    pattern=[["ssh-add", "ssh-agent"]],
+    decision="forbidden",
+    justification="SSH agent and key handling stay with the user.",
+    match=["ssh-add -l", "ssh-agent -s"],
+    not_match=["ssh user@host"],
+)
+
+# GitHub: reading needs approval; changing anything remote needs approval; deleting
+# a repository is never an incidental development action.
+prefix_rule(
+    pattern=["gh", ["pr", "issue", "repo", "run"], ["view", "list", "checks", "diff", "status", "watch"]],
+    decision="prompt",
+    justification="Reading GitHub state is allowed with approval.",
+    match=["gh pr view 123", "gh pr checks 123", "gh run list", "gh repo view owner/repo"],
+    not_match=["gh repo delete owner/repo", "gh pr create"],
+)
+
+prefix_rule(
+    pattern=["gh", ["pr", "issue", "release"], ["create", "merge", "close", "comment", "edit", "reopen", "review", "delete"]],
+    decision="prompt",
+    justification="Publishing to or changing GitHub needs an explicit request.",
+    match=["gh pr create", "gh pr merge 123", "gh issue comment 1", "gh release create v1"],
+    not_match=["gh pr view 123"],
+)
+
+prefix_rule(
+    pattern=["gh", ["workflow", "api"]],
+    decision="prompt",
+    justification="Workflow runs and raw API calls can change remote state.",
+    match=["gh workflow run ci.yml", "gh api repos/owner/repo"],
+    not_match=["gh pr view 123"],
+)
+
+prefix_rule(
+    pattern=["gh", "repo", "delete"],
+    decision="forbidden",
+    justification="Delete repositories manually after verifying the exact target.",
+    match=["gh repo delete owner/repo --yes"],
+    not_match=["gh repo view owner/repo"],
+)
+
+# Broad deletion and privilege escalation need a human decision.
+prefix_rule(
+    pattern=["rm", ["-rf", "-fr"]],
+    decision="prompt",
+    justification="Recursive forced deletion needs confirmation of the exact path.",
+    match=["rm -rf build", "rm -fr build"],
+    not_match=["rm file.txt"],
+)
+
+prefix_rule(
+    pattern=["sudo"],
+    decision="prompt",
+    justification="Root changes need explicit approval.",
+    match=["sudo systemctl restart nginx"],
+    not_match=["systemctl --user status unit"],
 )

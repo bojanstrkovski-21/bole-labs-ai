@@ -60,7 +60,7 @@ description: Build, edit, validate, and deploy Astro static sites, including rou
 - Read `references/content-and-routes.md` for content schemas, drafts and
   future dates, URL contracts, scaffolding, and redirects.
 - Read `references/performance-seo-hosting.md` for Lighthouse targets, SEO
-  metadata, `_headers` caching, and Cloudflare Pages deployment.
+  metadata, `_headers` caching, and Cloudflare Workers/Pages hosting.
 - Use `$web-design` for tokens, themes, and typography, `$web-accessibility`
   for WCAG behavior, and `$frontend-testing` for Playwright and Lighthouse.
 

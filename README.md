@@ -26,7 +26,8 @@ cd ~/.agents
   when that tool's config directory exists. Add `--create-missing` to also
   create the directory and links for tools that are not installed yet
   (`./install.sh --create-missing`; combine with `--dry-run` to preview).
-- Codex: instructions, rules, and profiles are linked once `~/.codex` exists;
+- Codex: instructions, rules, and profiles are linked once `~/.codex` exists
+  (or created with `--create-missing`);
   `config.toml` is copied only when absent and never overwritten. Codex reads
   skills from `~/.agents/skills` directly.
 - Rerunning is safe: correct links are skipped, and anything in the way is
@@ -37,7 +38,7 @@ tools were added; existing links already see the new file contents.
 
 ## Layout
 
-- `skills/<name>/SKILL.md` — 19 reusable skills, agent-agnostic. This is
+- `skills/<name>/SKILL.md` — 21 reusable skills, agent-agnostic. This is
   already Codex's native `AGENTS_HOME/skills` path; Claude reaches it via a
   per-skill symlink into `~/.claude/skills/`.
 - `memory/` — global fact pool, shared across every project (not per-repo).
@@ -49,10 +50,11 @@ tools were added; existing links already see the new file contents.
   (session-defaults' lighter single-file version).
 - `commands/` — shared start-session/end-session workflow definitions.
 - `claude/` — `CLAUDE.md`, linked to `~/.claude/CLAUDE.md`.
-- `codex/` — Codex instructions, rules, and a minimal own `config.toml`
-  (seeded once, never overwritten); dormant until Codex is reinstalled.
-  `install.sh` links the rest once `~/.codex` exists. Parts still derive
-  from titus-ai/titstack; see Acknowledgments.
+- `codex/` — own Codex instructions, command rules (`rules/default.rules`,
+  enforcing the git and auth policy), local-model profiles, and a minimal
+  `config.toml` (seeded once, never overwritten). Dormant until Codex is
+  installed; `install.sh` links them once `~/.codex` exists. Structure
+  inspired by titstack; see Acknowledgments.
 - `copilot/` — ported from session-defaults, plus `set-git-cred.sh`/`push.sh`
   (the user's standard git bootstrap scripts, used in ~20 of their projects).
   Copilot has no user-global instructions file, so this whole directory is
@@ -62,8 +64,8 @@ tools were added; existing links already see the new file contents.
   copies `set-git-cred.sh`/`push.sh`.
 - `install.sh` flags: `--dry-run` previews; `--create-missing` also creates the
   config dir and skills links for skills-only tools that are not installed yet
-  (Grok, Gemini, Copilot; Codex is never created this way). Supported tools are
-  listed in `SKILLS_ONLY_TOOLS` at the top of the script.
+  (Grok, Gemini, Copilot) and for Codex. Skills-only tools are listed in
+  `SKILLS_ONLY_TOOLS` at the top of the script.
 - `set-git-cred.sh`, `push.sh` — this repo's own filled-in copies
   (`project=bole-labs-ai`), for the user to run themselves. Not run by
   Claude/Codex/Copilot — see the git-authentication rule below.
@@ -89,6 +91,52 @@ user running `./set-git-cred.sh` then `./push.sh`).
 
 ## Known follow-ups (not done in the initial merge)
 
+- **Omarchy v4.5.0 scan, split by skill** (pinned to tag v4.5.0, repo `omacom/omarchy`;
+  `basecamp/omarchy` redirects there). Read so far and already applied: `AGENTS.md`,
+  `CLAUDE.md`, `motion.md`, `shell-dev.md`, `visual-verification.md`.
+  - `find-skills` (skills and agent instruction files: find, vet, adapt rules):
+    unread dev guides `agents/skills/{command-metadata,install-scripts,mise-tools,migrations,icon-font,acceptance-tests}.md`;
+    user skills `default/agents/skills/omarchy/{hyprland,plugins,hooks,capture,contributing}.md`,
+    `omarchy-app/SKILL.md`; the rest of Emil Kowalski's skills (`review-animations`,
+    `animation-performance`, `break-ui`); the unread `house-skills` and `omarchy-plugin-marketplace`
+    listings. The GitLab, Codeberg, Bitbucket, and open-web recipes were run on 2026-11-07
+    (topics: Astro, Bash, Quickshell, Python) and the lessons written into the skill.
+    Not yet applied: the extra `diagnose-crash` ideas for `linux-sysadmin`/`podman-operator`.
+  - `boki-code-scout` (source code study, untested): system reference `docs/{omarchy-shell,file-layout,
+    update-process,testing,menu,notifications,regions,i18n}.md` and `docs/theming.md` in full; QML under
+    `shell/` (`Commons/Style.qml`, `Color.qml`, `Ui/KeyboardPanel.qml`); theme files and
+    `default/themed/*.tpl`; and the design repos `omarchy-theme-registry`, `omarchy-theme-marketplace`,
+    `aether`, `omarchy-theme-sync`, `omarchy-site-crt`, `omarchy-osaka-jade-theme` (all MIT) plus
+    `omarchy-site` (no license: reference only). `oligarchy-tests.md` exists only on a newer commit.
+  - `boki-code-scout` hostile-file test 2026-11-07 passed (a crafted repo with seven injection attempts; canary
+    file, `~/.bashrc`, git remotes and `~/.cache` unchanged; not blind, since the same agent wrote and studied it).
+  - `boki-code-scout` was tested 2026-11-07 (T1-T5, all passed): Omarchy motion docs against
+    `Style.qml` and its test, a repo with its own `AGENTS.md` (read as data), a licensed and an
+    unlicensed Quickshell repo, a large Astro repo without cloning, and the Cloudflare adapter
+    change (dropped Pages in `@astrojs/cloudflare` 13.0.0). Lessons are in the skill.
+- **Check:** `skills/quickshell/scripts/quickshell-qmllint` exited 255 with no output when run with `--root` on a
+  copy of a live config (2026-11-07), so it could not confirm a known missing-property error. Investigate before
+  relying on it for pre-deploy checks; a root-level property check against the base type did catch it.
+- **Qt QML skills vetted 2026-11-07** (`theqtcompanyrnd/agent-skills`, BSD-3-Clause option): all six read;
+  rules, performance triage, and a review procedure adapted into `quickshell`. Not adopted: `qt-qml-docs`;
+  deferred: `qt-qml-profiler` (use on a shell needs checking), `qt-qml-test` and `qt-qml-test-run`
+  (Qt Quick Test; Quickshell types may need the shell). The Qt linter was audited but not run.
+- **Recipe test runs (Astro, Bash, Quickshell, Python), split by skill** (2026-11-07):
+  - `find-skills` (vet and adapt): Qt's official `qt-qml`, `qt-qml-review`, `qt-qml-profiler` skills and
+    `theqtcompanyrnd/agent-skills`; `anasgets111/dotfiles` Quickshell frontend-design skill; Cloudflare's
+    agent-skills docs; `Soborbo/claudeskills` deployment and `siviter-xyz/dot-agent` astroflare skills; an
+    Astro static-site AGENTS.md template; Bash skills `rmyndharis` bash-pro, `philoserf` bash-audit,
+    `89jobrien` shell-scripting, `thebushidocollective` shell-best-practices; Python skills
+    `akmalovaa/python-skill`, `philoserf` python-quality-gate, `beshkenadze` python-uv; forge finds
+    (GitLab `agent-skills` projects, Codeberg `paperbyte/agent-skills`, `dominicsayers/my-coding-agent-skills`,
+    `x-cmd/skill`; Bitbucket `intlayer/intlayer` and `atlassian/sovereign` AGENTS.md); GitLab's agent-skills
+    docs; and the papers on SKILL.md supply-chain risks (vetting input).
+  - `boki-code-scout` (source study, parked): Quickshell shells and dotfiles (Codeberg `inerM/quickshell`,
+    `kitkat1424/dynamic-pill-quickshell`, `charlesrocket/topbar`, `belim_faux/qsdots`, `blx/blx-shell`,
+    `Fel/NoctaliaV5-KdeConnect-plugin`; GitLab `Alucherdi/quickshell`, `Gakuseei/Ricelin`,
+    `JonathanTroyer/burrow`); Astro sites (Codeberg `Trombach/astro-homepage`, `DI-Day/website`) and
+    Cloudflare's docs repo structure; and checking the Astro 6 Cloudflare adapter (Workers-only?) claim
+    against Astro's changelog and source.
 - ~~Near-duplicate memory facts under different filenames~~ — done
   2026-08-09: audited every file's `name:` frontmatter for collisions (not
   just filenames). Found and fixed three: `user-profile.md`/`user_profile.md`
@@ -106,9 +154,9 @@ user running `./set-git-cred.sh` then `./push.sh`).
   was added for Claude — the confirm-first rule is instruction-level only
   for now; wiring an actual permission gate is a good next step via the
   `update-config` skill once the exact rule syntax is confirmed.
-- `codex/config.toml` is linked as-is; it does not get titus-ai's
-  per-machine `~/github` trust-entry rendering. Run titus-ai's own
-  `scripts/install.sh` instead if that's needed.
+- ~~`codex/config.toml` is linked as-is~~ — done 2026-11-07: it is now our own
+  minimal file, seeded to `~/.codex/config.toml` once and never overwritten or
+  linked. Trusted projects are added through Codex itself.
 - ~~push.sh's branch-push check grepped the remote URL for "main"/"master"
   instead of the actual branch~~ — fixed 2026-08-09: now uses
   `git rev-parse --abbrev-ref HEAD`. Other repos using this same template
@@ -125,3 +173,13 @@ Structure and ideas for skills, validation, and workflow docs are adapted from
 [titstack](https://github.com/ChrisTitusTech/titstack) (MIT) and Chris's Astro
 [website](https://github.com/ChrisTitusTech/website). Those repositories are
 reference clones only; their configuration is not used as-is.
+
+The `boki-omarchy` skill summarizes Omarchy's agent guides (omacom/omarchy v4.5.0, MIT).
+The motion, shell-practice, and testing references are adapted in our own words from
+Omarchy ([omacom/omarchy](https://github.com/omacom/omarchy), MIT) and Emil
+Kowalski's [skills](https://github.com/emilkowalski/skills) (MIT). The QML rules
+are adapted from The Qt Company's
+[agent-skills](https://github.com/theqtcompanyrnd/agent-skills)
+(BSD-3-Clause option, copyright (c) 2026 The Qt Company Ltd.). The
+`CLAUDE.md` -> `@AGENTS.md` import pattern is documented in 37signals'
+[house-skills](https://github.com/basecamp/house-skills) (MIT).

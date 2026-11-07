@@ -65,6 +65,42 @@ exposes to force a theme instead of clicking the UI.
   assertions (see `$astro-development`, `references/performance-seo-hosting.md`).
 - **Unit tests:** content filtering, slug and route helpers, and scaffolders.
 
+## Worst-case data pass
+
+Adapted in our own words from Emil Kowalski's `break-ui` skill
+(emilkowalski/skills, MIT). A UI that looks right with demo data may not survive
+real data. For a component or page, build a second dataset of realistic worst
+cases and switch between the two:
+
+- Long and unbreakable values: a long hyphenated surname, an unbreakable email
+  address, a long label in a button or tab.
+- Short and missing: a one-letter name, a missing optional field, a missing
+  avatar, an empty list, zero items.
+- Counts and numbers: exactly 1 ("1 members"), very large counts, extreme
+  numbers, long decimals.
+- Text variety: non-Latin scripts, emoji, right-to-left text, accented letters.
+
+Keep every case plausible: a 5,000-character name proves nothing and gets
+ignored. Do not stop at long text; the bugs that ship are often an orphaned
+separator on a short value, a missing avatar, or a bad plural. Report what
+broke, with a screenshot of each failing case.
+
+## Destructive or interactive tests
+
+- Run tests that open and close applications, change desktop configuration, or
+  drive global keybindings in a disposable VM, never in the active development
+  session.
+- Restore any user state a test changes with a trap, so a failed step still
+  cleans up. Close everything the test opened.
+- Capture a screenshot of every visually distinct state (including entered
+  input), named by step, and capture a separate failure image when a step fails.
+- Keep unrelated workflows in separate test files, and let the runner record a
+  failed file and continue so one failure does not hide the rest.
+- Simulated typing into a focused control (for example `wtype`) does not prove a
+  global compositor keybinding works; use the compositor's or VM's own input
+  path for that. Pattern from Omarchy's acceptance-test guide (omacom/omarchy
+  v4.5.0, MIT).
+
 ## Validation
 
 - The project's complete gate passes, or each skipped check is named.

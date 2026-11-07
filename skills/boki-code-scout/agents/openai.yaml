@@ -1,0 +1,5 @@
+
+interface:
+  display_name: "Boki Code Scout"
+  short_description: "Study a repo's source and report adaptable patterns"
+  default_prompt: "Use $boki-code-scout to study this repository for the pattern I name and report what we can adapt."

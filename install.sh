@@ -9,8 +9,8 @@
 #   ./install.sh --dry-run    preview only, no changes
 #   ./install.sh --create-missing
 #                             also create the config dir and skills links for
-#                             SKILLS_ONLY_TOOLS that are not installed yet
-#                             (flags combine; Codex is never created this way)
+#                             SKILLS_ONLY_TOOLS and for Codex that are not installed
+#                             yet (flags combine)
 #   ./install.sh new-project <name> [--full-docs]   bootstrap a new project dir
 set -euo pipefail
 
@@ -80,8 +80,14 @@ install_skills_for() {
 }
 
 install_codex() {
-  # Dormant until Codex is actually installed/used again.
-  [[ -d "$HOME/.codex" ]] || { printf 'skipping Codex: ~/.codex not found\n'; return; }
+  if [[ ! -d "$HOME/.codex" ]]; then
+    if "$create_missing"; then
+      printf 'creating Codex: %s\n' "$HOME/.codex"
+    else
+      printf 'skipping Codex: ~/.codex not found (use --create-missing)\n'
+      return
+    fi
+  fi
   link_managed_path "$agents_root/codex/AGENTS.md" "$HOME/.codex/AGENTS.md"
   link_managed_path "$agents_root/codex/rules" "$HOME/.codex/rules"
   for profile in "$agents_root"/codex/*.config.toml; do

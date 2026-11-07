@@ -1,11 +1,8 @@
-# Local Ollama profile.
-#
-# Start Ollama and ensure the selected model is installed before use:
+# Profile for a local Ollama server. Select it with `codex --profile ollama`.
+# Ollama must be running and the model pulled first, for example:
 #   ollama pull qwen3-coder
-#   codex --profile ollama
-#
-# Override the model without editing this file:
-#   codex --profile ollama --model another-model
+# Use a different model for one run with `--model`, or change the value below.
+# Local models need reliable tool calling to work well with Codex.
 
 model = "qwen3-coder"
 model_provider = "ollama"

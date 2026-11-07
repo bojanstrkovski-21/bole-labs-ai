@@ -1,0 +1,5 @@
+
+interface:
+  display_name: "Boki Omarchy"
+  short_description: "Omarchy/Hyprland customization, development, and X11 migration notes"
+  default_prompt: "Use $boki-omarchy for this Omarchy or Hyprland task, or to plan a move from dwm/X11."

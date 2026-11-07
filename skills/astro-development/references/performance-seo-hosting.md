@@ -28,10 +28,31 @@ ChrisTitusTech/dcuo-wiki. Use as defaults; the project's own spec wins.
 - Lazy-load media, embeds, comments, ads, and search indexes; load search data
   on first use.
 - Use privacy-enhanced embed URLs and give embeds descriptive titles.
-- Keep a build-output budget when the host has a file-count limit (Cloudflare
-  Pages allows 20,000 files): fail the build above a safety margin.
+- Keep a build-output budget when the host has a file-count limit: fail the build
+  above a safety margin. Cloudflare Pages allows 20,000 files. Workers static
+  assets allow 20,000 files per Worker version on the Free plan and 100,000 on
+  Paid, with 25 MiB per file (Cloudflare's Workers limits page, checked
+  2026-11-07; limits change, so re-check).
 
-## Cloudflare Pages `_headers`
+## Hosting target: Workers versus Pages
+
+Checked 2026-11-07 against the `@astrojs/cloudflare` changelog, Astro's Cloudflare
+deploy guide, and Cloudflare's Workers static-assets docs.
+
+- The `@astrojs/cloudflare` adapter dropped official Cloudflare Pages support in
+  **13.0.0** (npm release 2026-03-10; changelog "Major Changes", PR #15480): it
+  "now only supports deployment to Cloudflare Workers by default". Astro's guide now covers Workers only and notes that Cloudflare
+  recommends Workers for new projects.
+- That concerns the SSR adapter. A fully static site needs no adapter; its
+  `dist/` output can still be deployed to Pages (the Titus website does this),
+  but prefer Workers with static assets for a new project and check the current
+  Cloudflare guidance before relying on Pages-only features.
+- Workers static assets read the same plain-text `_headers` and `_redirects`
+  files from the asset directory, so the rules below apply to both targets.
+- Pin the adapter major version from the project's `package.json`, and do not
+  add the adapter to a static site.
+
+## Cloudflare `_headers` (Workers static assets and Pages)
 
 ```text
 /*
@@ -48,7 +69,7 @@ ChrisTitusTech/dcuo-wiki. Use as defaults; the project's own spec wins.
   without a hash must revalidate.
 - HTML: `max-age=0, must-revalidate`. Fonts and images without a hash: long TTL,
   not immutable. Feeds and sitemap: short TTLs.
-- Pages reads `_headers` and `_redirects` from the build output; no server
+- Both targets read `_headers` and `_redirects` from the build output; no server
   code is needed. Preview a deployment before production and keep the previous
   deployment for rollback.
 

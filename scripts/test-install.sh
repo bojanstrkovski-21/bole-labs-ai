@@ -61,7 +61,7 @@ run_install >/dev/null
   fail "Codex config.toml was not seeded as a regular file"
 
 # 6. --create-missing: dry run creates nothing; a real run creates the skills-only
-#    tools' dirs and links but never Codex.
+#    tools' dirs and links, including Codex.
 fresh="$(mktemp -d)"
 trap 'rm -rf "$tmp_home" "$fresh"' EXIT
 mkdir -p "$fresh/.claude"
@@ -78,7 +78,12 @@ for tool in .grok .gemini .copilot; do
       fail "$tool skill not linked with --create-missing: $name"
   done
 done
-[[ ! -e "$fresh/.codex" ]] || fail "--create-missing created ~/.codex"
+[[ -f "$fresh/.codex/config.toml" && ! -L "$fresh/.codex/config.toml" ]] ||
+  fail "--create-missing did not seed Codex config.toml"
+[[ "$(readlink -f "$fresh/.codex/AGENTS.md")" == "$repo_root/codex/AGENTS.md" ]] ||
+  fail "Codex AGENTS.md not linked with --create-missing"
+[[ "$(readlink -f "$fresh/.codex/rules")" == "$repo_root/codex/rules" ]] ||
+  fail "Codex rules not linked with --create-missing"
 HOME="$fresh" "$repo_root/install.sh" new-project >/dev/null 2>&1 && fail "new-project without a name should fail"
 HOME="$fresh" "$repo_root/install.sh" --bogus >/dev/null 2>&1 && fail "unknown flag should fail"
 

@@ -64,6 +64,11 @@ rendered output.
 - Fast micro-tweaks need a rebuild and a one-line confirmation. Take a
   screenshot after a batch or when something "looks wrong".
 
+## Resources
+
+- Read `references/motion.md` before adding or changing any animation or
+  transition: when to animate, easing, durations, reduced motion.
+
 ## Validation
 
 - Screenshots at mobile and desktop widths, each theme, show no overflow,

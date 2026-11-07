@@ -25,6 +25,8 @@ required_files=(
   "memory/MEMORY.md"
   "scripts/validate.sh"
   "scripts/test-install.sh"
+  "scripts/check-rules.py"
+  "codex/rules/default.rules"
 )
 for relative in "${required_files[@]}"; do
   [[ -f "$repo_root/$relative" ]] || fail "missing $relative"
@@ -75,8 +77,38 @@ if [[ -n "$python_cmd" ]]; then
     "$python_cmd" -I -c 'import pathlib, sys, tomllib; tomllib.loads(pathlib.Path(sys.argv[1]).read_text())' "$toml" ||
       fail "invalid TOML in ${toml#"$repo_root"/}"
   done
+  "$python_cmd" -I "$repo_root/scripts/check-rules.py" "$repo_root/codex/rules/default.rules" ||
+    fail "codex/rules/default.rules failed the offline rules check"
 else
-  printf 'warning: Python 3.11+ not found; skipping TOML checks\n' >&2
+  printf 'warning: Python 3.11+ not found; skipping TOML and rules checks\n' >&2
+fi
+
+# When Codex is installed, also use its own rules engine.
+if command -v codex >/dev/null 2>&1 && codex --version >/dev/null 2>&1; then
+  codex execpolicy check --rules "$repo_root/codex/rules/default.rules" git status >/dev/null ||
+    fail "codex execpolicy rejected codex/rules/default.rules"
+fi
+
+# Shared policy must stay identical in intent across the Claude and Codex files.
+if [[ -n "$python_cmd" ]]; then
+  "$python_cmd" -I - "$repo_root/claude/CLAUDE.md" "$repo_root/codex/AGENTS.md" <<'PY' || fail "git/confirm-first policy differs between claude/CLAUDE.md and codex/AGENTS.md"
+import pathlib, re, sys
+required = [
+    "State what you intend to change and why, then wait before touching any file",
+    "Never run git commands (init, commit, push, branch, tag, remote) automatically",
+    "anything that mutates history or a remote needs an explicit ask first",
+    "Don't reach for `gh auth`, credential-helper, or SSH-agent commands",
+    "Never force push. Never amend a published commit. Never create tags without being asked.",
+]
+bad = False
+for path in sys.argv[1:]:
+    text = re.sub(r"\s+", " ", pathlib.Path(path).read_text())
+    for fragment in required:
+        if fragment not in text:
+            print(f"{path}: missing shared rule: {fragment}", file=sys.stderr)
+            bad = True
+sys.exit(1 if bad else 0)
+PY
 fi
 
 # Runtime state and credentials must not be tracked.

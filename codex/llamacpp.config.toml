@@ -1,12 +1,8 @@
-# Local llama.cpp profile.
-#
-# Start llama-server with its OpenAI-compatible endpoint on port 8080:
+# Profile for a local llama.cpp server. Select it with `codex --profile llamacpp`.
+# Start the server with an OpenAI Responses-compatible endpoint first:
 #   llama-server --model /path/to/model.gguf --jinja --port 8080
-#   codex --profile llamacpp
-#
-# The model value is an API identifier. Override it when your server expects a
-# specific model name:
-#   codex --profile llamacpp --model another-model
+# `model` is an API identifier; set it to whatever name your server expects, or
+# override it for one run with `--model`.
 
 model = "local-model"
 model_provider = "local_llamacpp"
