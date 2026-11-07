@@ -5,6 +5,11 @@ description: Validate local or published changes from final diff through pull-re
 
 # PR readiness
 
+Match the requested milestone: local validation, PR publication, or merge
+readiness. For local work, remote gates are not applicable. Reuse a completed
+review for the same unchanged diff; do not start another review merely because
+this skill was loaded after the review gate already passed.
+
 ## Workflow
 
 1. Read the applicable repository instructions, requirements, accepted plan,
@@ -13,11 +18,18 @@ description: Validate local or published changes from final diff through pull-re
    unrelated pre-existing changes from the requested change.
 3. Run focused checks, then the repository's complete required local gate.
    Record exact commands, results, skipped checks, and residual risk.
-4. Run the local CodeRabbit review when the CLI is available:
+4. Run the local CodeRabbit review when the CLI is available. Select the scope
+   that contains the requested change:
 
    ```bash
    coderabbit review --agent --uncommitted --include-untracked
+   coderabbit review --agent --committed --base <target-branch>
+   coderabbit review --agent --base-commit <sha>
    ```
+
+   Resolve the actual PR target branch rather than assuming `main`. If both
+   committed and uncommitted work belong to the request, cover both; a clean
+   worktree does not establish that committed changes were reviewed.
 
    Let the review finish. Verify every finding against the current diff, fix
    only actionable defects, add regression coverage when practical, rerun

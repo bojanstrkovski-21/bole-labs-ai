@@ -1,0 +1,5 @@
+
+interface:
+  display_name: "Frontend Testing"
+  short_description: "Playwright, screenshots, axe, and Lighthouse checks"
+  default_prompt: "Use $frontend-testing to verify this frontend change in a real browser."

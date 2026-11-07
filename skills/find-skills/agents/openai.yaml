@@ -1,0 +1,5 @@
+
+interface:
+  display_name: "Find Skills"
+  short_description: "Discover and vet agent skills across forges and the web"
+  default_prompt: "Use $find-skills to find and vet skills for this topic, or to improve one of our skills."

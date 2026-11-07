@@ -19,8 +19,10 @@ per-project memory.
   (session-defaults' lighter single-file version).
 - `commands/` — shared start-session/end-session workflow definitions.
 - `claude/` — `CLAUDE.md`, linked to `~/.claude/CLAUDE.md`.
-- `codex/` — ported from titus-ai, dormant until Codex is reinstalled.
-  `install.sh` links it automatically once `~/.codex` exists.
+- `codex/` — Codex instructions, rules, and a minimal own `config.toml`
+  (seeded once, never overwritten); dormant until Codex is reinstalled.
+  `install.sh` links the rest once `~/.codex` exists. Parts still derive
+  from titus-ai/titstack; see Acknowledgments.
 - `copilot/` — ported from session-defaults, plus `set-git-cred.sh`/`push.sh`
   (the user's standard git bootstrap scripts, used in ~20 of their projects).
   Copilot has no user-global instructions file, so this whole directory is
@@ -84,3 +86,8 @@ user running `./set-git-cred.sh` then `./push.sh`).
 Thanks to [Chris Titus Tech](https://github.com/ChrisTitusTech) and
 [Erik Dubois](https://github.com/erikdubois) for the neverending
 inspiration.
+
+Structure and ideas for skills, validation, and workflow docs are adapted from
+[titstack](https://github.com/ChrisTitusTech/titstack) (MIT) and Chris's Astro
+[website](https://github.com/ChrisTitusTech/website). Those repositories are
+reference clones only; their configuration is not used as-is.

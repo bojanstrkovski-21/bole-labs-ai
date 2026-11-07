@@ -1,0 +1,5 @@
+
+interface:
+  display_name: "Web Design"
+  short_description: "Design tokens, themes, layout, and typography"
+  default_prompt: "Use $web-design to design or refine this page or theme."

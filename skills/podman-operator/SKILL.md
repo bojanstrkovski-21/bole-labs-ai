@@ -1,6 +1,6 @@
 ---
 name: podman-operator
-description: Build, deploy, and troubleshoot Podman services, Quadlet units, rootless containers, container networking, volumes, systemd integration, and production container operations. Use when the agent is asked to convert compose files, write Quadlet units, debug Podman networking or volumes, or prepare repeatable container deployment steps.
+description: Build and operate Podman containers and Quadlet services, including compose conversion, rootless deployment, networking, volumes, systemd integration, and troubleshooting.
 ---
 
 # podman-operator
@@ -11,8 +11,9 @@ description: Build, deploy, and troubleshoot Podman services, Quadlet units, roo
 2. Separate container lifecycle or Quadlet failures from underlying host,
    storage, DNS, and application failures; route substantial work in those
    layers to the narrower skill.
-3. Determine whether rootless or rootful operation is required and create
-   rollback using previous image tags, unit files, and volume backups.
+3. Preserve the rootless or rootful deployment model unless the task requires
+   changing it. Before mutation, retain prior image identifiers and units;
+   back up volume data when the operation could change or remove it.
 4. Implement the smallest Podman-specific change and validate it through both
    systemd and Podman.
 
@@ -22,13 +23,18 @@ description: Build, deploy, and troubleshoot Podman services, Quadlet units, roo
 podman ps -a
 podman images
 podman logs <container>
-podman inspect <container>
+podman inspect --format '{{.State.Status}} {{.HostConfig.RestartPolicy.Name}}' <container>
 podman network ls
 podman volume ls
 systemctl --user status <unit>
 journalctl --user -xeu <unit>
 loginctl show-user <user>
 ```
+
+Use selected `podman inspect --format` fields for the diagnosis; full inspect
+output and logs can contain environment credentials. Do not expose secrets.
+Use `systemctl --user` for rootless units and the system manager for rootful
+units; run only the diagnostics relevant to the failure.
 
 ## Diagnose from evidence
 
@@ -50,8 +56,9 @@ still gathering evidence.
 
 ## Validation
 
-- `systemctl --user status <unit>` is healthy.
+- The unit is healthy in the correct systemd manager.
 - `podman ps` shows expected ports and status.
 - Container logs show no startup errors.
 - Published endpoints respond from the host and expected clients.
-- Restart and reboot behavior match the service requirements.
+- Inspect restart and boot configuration. Exercise disruptive restart or reboot
+  tests only within the authorized maintenance scope and report untested paths.

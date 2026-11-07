@@ -1,0 +1,5 @@
+
+interface:
+  display_name: "Web Accessibility"
+  short_description: "Audit and fix WCAG 2.2 AA behavior"
+  default_prompt: "Use $web-accessibility to audit and fix accessibility on this page."

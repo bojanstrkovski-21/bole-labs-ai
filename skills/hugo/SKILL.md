@@ -9,7 +9,9 @@ Use this skill for Hugo static-site work: content changes, template/layout edits
 
 ## First Pass
 
-Before editing, inspect the project shape:
+Read repository instructions and inspect existing changes first. Choose the
+remaining context by task; a content correction does not require a full site
+or deployment inventory:
 
 - Read repository instructions such as `AGENTS.md`, `CLAUDE.md`, and relevant README files.
 - Identify the Hugo config file: `hugo.toml`, `config.toml`, `hugo.yaml`, `config.yaml`, `hugo.json`, or a `config/` directory.

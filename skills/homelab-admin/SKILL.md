@@ -1,6 +1,6 @@
 ---
 name: homelab-admin
-description: Operate and troubleshoot homelab infrastructure with Rocky Linux, systemd, networking, NFS, Synology storage, DNS, reverse proxies, and storage management. Use when the agent is asked to plan maintenance, diagnose outages, change host or network configuration, document runbooks, or prepare safe commands for homelab servers.
+description: Operate homelab infrastructure spanning networking, DNS, storage, NFS and Synology, reverse proxies, or multiple services. Use for cross-system work rather than an isolated host, application, or container problem.
 ---
 
 # homelab-admin
@@ -11,9 +11,11 @@ description: Operate and troubleshoot homelab infrastructure with Rocky Linux, s
    service ownership before changing anything.
 2. Route an isolated Linux, Forgejo, or Podman problem to its narrower skill;
    keep this skill active when multiple infrastructure layers interact.
-3. Determine user impact and blast radius, prepare rollback and out-of-band
-   access, then make the smallest safe change.
-4. Validate service, network, storage, client access, and reboot persistence.
+3. For authorized changes, determine impact and blast radius and prepare
+   rollback. Before changes that could sever access, verify an alternate
+   recovery path, then make the smallest safe change.
+4. Validate the affected service, network, storage, and client paths. Inspect
+   persistence configuration; reboot only within an authorized maintenance scope.
 
 ## Diagnostics
 
@@ -28,7 +30,7 @@ df -h
 lsblk
 findmnt
 dig <name>
-curl -vk <url>
+curl -I <url>
 ```
 
 ## Diagnose from evidence
@@ -43,6 +45,8 @@ still gathering evidence.
 
 ## Safety Rules
 
+- Keep TLS certificate verification enabled. Do not use insecure requests as
+  evidence that a certificate or trust-chain problem is fixed.
 - Never destroy data without explicit approval.
 - Never modify firewall or DNS blindly.
 - Never change networking without rollback and out-of-band access.
@@ -51,8 +55,8 @@ still gathering evidence.
 
 ## Validation
 
-- Service starts now and after reboot.
-- Mounts persist after reboot.
+- Changed services and mounts work now and have correct persistence settings.
+- Report an actual reboot test separately from configuration inspection.
 - DNS resolves from expected clients.
 - Reverse proxy routes to the expected backend.
 - Logs show no new errors.
