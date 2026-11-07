@@ -15,6 +15,7 @@ Shared across all projects/tools (Claude, Codex, Copilot). One file per fact.
 - [feedback-preferences.md](feedback-preferences.md) — How this user likes to work and communicate
 - [feedback_scope_then_mirror_themes.md](feedback_scope_then_mirror_themes.md) — astro-webhome: default new work to the theme in discussion
 - [feedback_sync_project_memory_mirror.md](feedback_sync_project_memory_mirror.md) — astro-webhome mirrors Claude's memory at repo-root memory/ — update both copies on any change
+- [feedback_mirror_memory_in_project_root.md](feedback_mirror_memory_in_project_root.md) — Default for every project: mirror Claude project memory at memory/ in the project root and keep both in sync
 - [feedback-session-workflow.md](feedback-session-workflow.md) — User's start/end-session convention — implemented globally via ~/.agents/commands/
 - [feedback_testing-phase-no-live-touch.md](feedback_testing-phase-no-live-touch.md) — R&D/porting projects: never touch live system files outside the project dir while testing
 - [feedback_toml_over_json.md](feedback_toml_over_json.md) — Prefer TOML over JSON for hand-edited config/preset files this user maintains
