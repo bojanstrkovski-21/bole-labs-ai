@@ -1,0 +1,62 @@
+#!/usr/bin/env python3
+"""Run Qt's vendored QML linter and hide rules that are noise for a Quickshell shell.
+
+usage: quickshell-qt-lint [--all] [linter options] [qml-file ...]
+       find . -name '*.qml' | quickshell-qt-lint --files-from=-
+       quickshell-qt-lint --diff=HEAD~1..HEAD
+
+Everything except --all is passed to qt_qml_lint.py (see its header for --diff,
+--files-from=- and --qmllint). Exit status: 1 if findings remain, 0 if none.
+
+Hidden by default (measured on a 114-file Quickshell config: 1,247 findings, about 90% of them these):
+  ORD-1  attribute ordering style          BND-1  `property var` typing
+  STY-3  dot-notation grouping style       PRF-3  clip: true hint
+  BND-2  imperative `=` on `...Process.command/running` (the normal Quickshell Process idiom)
+Use --all to see everything.
+"""
+import json
+import pathlib
+import re
+import subprocess
+import sys
+
+HERE = pathlib.Path(__file__).resolve().parent
+NOISY_RULES = {"ORD-1", "BND-1", "STY-3", "PRF-3"}
+PROCESS_IDIOM = re.compile(r"Imperative '=' on '[\w.]*Process\.(command|running)'")
+
+
+def hidden(finding):
+    if finding["rule"] in NOISY_RULES:
+        return finding["rule"]
+    if finding["rule"] == "BND-2" and PROCESS_IDIOM.search(finding["message"]):
+        return "BND-2(Process)"
+    return None
+
+
+def main(argv):
+    show_all = "--all" in argv
+    args = [a for a in argv if a not in ("--all", "--json", "--summary")]
+    proc = subprocess.run(
+        [sys.executable, "-I", str(HERE / "qt_qml_lint.py"), "--json", *args],
+        stdin=sys.stdin, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,
+    )
+    if proc.returncode not in (0, 1) or not proc.stdout.strip():
+        sys.stderr.write(proc.stderr or "qt_qml_lint.py produced no output\n")
+        return 2
+    findings = json.loads(proc.stdout)
+    shown, counts = [], {}
+    for f in findings:
+        h = None if show_all else hidden(f)
+        if h:
+            counts[h] = counts.get(h, 0) + 1
+        else:
+            shown.append(f)
+    for f in shown:
+        print(f"{f['file']}:{f['line']} {f['rule']} {f['message']}")
+    note = ", ".join(f"{k} {v}" for k, v in sorted(counts.items()))
+    print(f"\n{len(shown)} finding(s) shown" + (f"; hidden as style/idiom noise: {note} (use --all)" if note else ""), file=sys.stderr)
+    return 1 if shown else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv[1:]))

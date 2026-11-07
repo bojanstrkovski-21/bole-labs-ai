@@ -38,6 +38,32 @@ It:
 - creates temporary `qmldir` files and symlinks for local QML types;
 - sets `QMLLS_BUILD_DIRS` and `QML_IMPORT_PATH` for the lint process.
 
+## Qt's Rule Linter (Vendored)
+
+`scripts/qt_qml_lint.py` is Qt's own deterministic QML linter (about 46 rules: imports,
+bindings, layouts, loaders, delegates, states, images, performance, signals, JavaScript),
+vendored unmodified from The Qt Company's `agent-skills` under BSD-3-Clause. Provenance, the
+pinned commit, the sha256, and the audit notes are in `scripts/qt_qml_lint.PROVENANCE`; the
+license is `scripts/QT-LICENSE.txt`. It uses only the standard library and never touches the
+network or writes files. Always run it through the wrapper, with Python's isolated mode:
+
+```sh
+python3 -I "$quickshell_skill_dir/scripts/quickshell-qt-lint" path/to/File.qml ...
+find config/quickshell -name '*.qml' | python3 -I "$quickshell_skill_dir/scripts/quickshell-qt-lint" --files-from=-
+python3 -I "$quickshell_skill_dir/scripts/quickshell-qt-lint" --diff=HEAD~1..HEAD
+```
+
+`--files-from` accepts only `-` (standard input); `--files-from=path` is silently treated as a
+file name and lints nothing. The wrapper exits 1 when findings remain and hides rules that are
+noise for a shell: `ORD-1` (attribute order), `BND-1` (`property var`), `STY-3` (dot-notation
+grouping), `PRF-3` (`clip: true`) and `BND-2` on `...Process.command/running` (the normal
+Quickshell `Process` idiom). On a 114-file shell that hid 1,214 of 1,247 findings and left 33
+real ones. Pass `--all` for everything. Its rules complement, and do not replace, `qmllint`
+with the Quickshell import roots (which finds missing properties and types).
+
+To update the vendored copy: fetch the new file, repeat the audit in the provenance file,
+replace it, and update the commit and sha256 there (`scripts/validate.sh` fails otherwise).
+
 ## An Empty Result Is Not A Pass
 
 On Arch (and any distro where the Qt 5 package owns `/usr/bin/qmllint`) the bare

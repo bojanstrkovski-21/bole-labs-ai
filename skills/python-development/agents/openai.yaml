@@ -1,0 +1,5 @@
+
+interface:
+  display_name: "Python Development"
+  short_description: "Write, test, and package Python with uv, ruff, and pytest"
+  default_prompt: "Use $python-development for this Python change, keeping the project's existing tools."

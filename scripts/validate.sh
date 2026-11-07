@@ -111,6 +111,23 @@ sys.exit(1 if bad else 0)
 PY
 fi
 
+# Vendored third-party linter: pinned hash, license present, wrapper still works.
+lint_dir="$repo_root/skills/quickshell/scripts"
+recorded_sha="$(sed -n 's/^sha256: *//p' "$lint_dir/qt_qml_lint.PROVENANCE" 2>/dev/null || true)"
+actual_sha="$(sha256sum "$lint_dir/qt_qml_lint.py" 2>/dev/null | cut -d' ' -f1 || true)"
+[[ -n "$recorded_sha" && "$recorded_sha" == "$actual_sha" ]] ||
+  fail "skills/quickshell/scripts/qt_qml_lint.py does not match the sha256 in qt_qml_lint.PROVENANCE"
+[[ -f "$lint_dir/QT-LICENSE.txt" ]] || fail "missing skills/quickshell/scripts/QT-LICENSE.txt"
+if [[ -n "$python_cmd" ]]; then
+  lint_tmp="$(mktemp -d)"
+  printf 'import QtQuick 2.15\nItem {}\n' >"$lint_tmp/control.qml"
+  lint_status=0
+  lint_out="$("$python_cmd" -I "$lint_dir/quickshell-qt-lint" "$lint_tmp/control.qml" 2>/dev/null)" || lint_status=$?
+  rm -rf "$lint_tmp"
+  [[ $lint_status -eq 1 && "$lint_out" == *IMP-2* ]] ||
+    fail "quickshell-qt-lint did not report the versioned import in its control file"
+fi
+
 # Runtime state and credentials must not be tracked.
 if git -C "$repo_root" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
   if git -C "$repo_root" ls-files | grep -Eq '(^|/)(auth\.json|history\.jsonl|installation_id|\.env|.*\.sqlite(-shm|-wal)?)$'; then

@@ -39,7 +39,9 @@ judgment second.
 
 1. Run the `scripts/quickshell-qmllint` helper (see Fast Commands) on the files in
    scope. Resolve missing-import noise before treating a finding as real.
-2. Scan the files against the checklist in `references/qml-rules.md`. Many items are
+2. Run `scripts/quickshell-qt-lint` on the same files (Qt's rule linter, vendored unmodified;
+   it hides style-only rules, `--all` shows them), then scan the files against the checklist in
+   `references/qml-rules.md`. Many items are
    greppable (versioned imports, `Qt.createComponent`, `parent.parent`, bare
    `duration:` numbers, `on`+Capital property names, `textFormat` on untrusted text).
 3. Read bindings, loaders, delegates, and anything that touches external text by hand.

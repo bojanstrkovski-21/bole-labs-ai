@@ -38,7 +38,7 @@ tools were added; existing links already see the new file contents.
 
 ## Layout
 
-- `skills/<name>/SKILL.md` — 21 reusable skills, agent-agnostic. This is
+- `skills/<name>/SKILL.md` — 22 reusable skills, agent-agnostic. This is
   already Codex's native `AGENTS_HOME/skills` path; Claude reaches it via a
   per-skill symlink into `~/.claude/skills/`.
 - `memory/` — global fact pool, shared across every project (not per-repo).
@@ -181,6 +181,10 @@ Omarchy ([omacom/omarchy](https://github.com/omacom/omarchy), MIT) and Emil
 Kowalski's [skills](https://github.com/emilkowalski/skills) (MIT). The QML rules
 are adapted from The Qt Company's
 [agent-skills](https://github.com/theqtcompanyrnd/agent-skills)
-(BSD-3-Clause option, copyright (c) 2026 The Qt Company Ltd.). The
+(BSD-3-Clause option, copyright (c) 2026 The Qt Company Ltd.), and the QML linter
+`skills/quickshell/scripts/qt_qml_lint.py` is vendored unmodified from it (commit, hash, and
+license in `qt_qml_lint.PROVENANCE` and `QT-LICENSE.txt`). The `python-development` stack defaults were
+informed by [akmalovaa/python-skill](https://github.com/akmalovaa/python-skill) (MIT); every command
+in it was re-run in a throwaway project. The
 `CLAUDE.md` -> `@AGENTS.md` import pattern is documented in 37signals'
 [house-skills](https://github.com/basecamp/house-skills) (MIT).
