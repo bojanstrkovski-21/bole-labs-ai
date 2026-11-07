@@ -3,14 +3,27 @@
 # new project with the shared project-doc + Copilot templates.
 #
 # Usage:
-#   ./install.sh              install/link for Claude, skills for Grok/Gemini/Copilot
-#                             when their config dir exists (+ Codex if ~/.codex exists)
+#   ./install.sh              install/link for Claude, and skills for the tools in
+#                             SKILLS_ONLY_TOOLS whose config dir exists
+#                             (+ Codex if ~/.codex exists)
 #   ./install.sh --dry-run    preview only, no changes
+#   ./install.sh --create-missing
+#                             also create the config dir and skills links for
+#                             SKILLS_ONLY_TOOLS that are not installed yet
+#                             (flags combine; Codex is never created this way)
 #   ./install.sh new-project <name> [--full-docs]   bootstrap a new project dir
 set -euo pipefail
 
 agents_root="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 dry_run=false
+create_missing=false
+
+# Skills-only tools: "Name|config dir|skills dir". Add a line to support another.
+SKILLS_ONLY_TOOLS=(
+  "Grok|$HOME/.grok|$HOME/.grok/skills"
+  "Gemini|$HOME/.gemini|$HOME/.gemini/skills"
+  "Copilot|$HOME/.copilot|$HOME/.copilot/skills"
+)
 backup_root="$HOME/.claude/backups/agents-install-$(date +%Y%m%d-%H%M%S)-$$"
 
 run() {
@@ -49,11 +62,18 @@ install_claude() {
   done
 }
 
-# Skills-only targets: link each skill into the tool's user skills directory,
-# but only when the tool's config directory already exists.
+# Skills-only targets: link each skill into the tool's user skills directory.
+# Skipped when the tool's config directory is absent, unless --create-missing.
 install_skills_for() {
   local tool="$1" config_dir="$2" skills_dir="$3"
-  [[ -d "$config_dir" ]] || { printf 'skipping %s: %s not found\n' "$tool" "$config_dir"; return; }
+  if [[ ! -d "$config_dir" ]]; then
+    if "$create_missing"; then
+      printf 'creating %s: %s\n' "$tool" "$config_dir"
+    else
+      printf 'skipping %s: %s not found (use --create-missing)\n' "$tool" "$config_dir"
+      return
+    fi
+  fi
   for skill_dir in "$agents_root"/skills/*/; do
     link_managed_path "${skill_dir%/}" "$skills_dir/$(basename "$skill_dir")"
   done
@@ -107,20 +127,31 @@ new_project() {
 
 install_all() {
   install_claude
-  install_skills_for Grok "$HOME/.grok" "$HOME/.grok/skills"
-  install_skills_for Gemini "$HOME/.gemini" "$HOME/.gemini/skills"
-  install_skills_for Copilot "$HOME/.copilot" "$HOME/.copilot/skills"
+  local entry name config_dir skills_dir
+  for entry in "${SKILLS_ONLY_TOOLS[@]}"; do
+    IFS='|' read -r name config_dir skills_dir <<<"$entry"
+    install_skills_for "$name" "$config_dir" "$skills_dir"
+  done
   install_codex
 }
 
 main() {
-  local cmd="${1:-install}"
-  case "$cmd" in
-    --dry-run) dry_run=true; install_all ;;
-    install) install_all ;;
-    new-project) shift; new_project "$@" ;;
-    *) printf 'usage: %s [--dry-run|install|new-project <name> [--full-docs]]\n' "$0" >&2; exit 2 ;;
-  esac
+  local usage="usage: $0 [--dry-run] [--create-missing] | new-project <name> [--full-docs]"
+  if [[ "${1:-}" == "new-project" ]]; then
+    shift
+    new_project "$@"
+    return
+  fi
+  local arg
+  for arg in "$@"; do
+    case "$arg" in
+      --dry-run) dry_run=true ;;
+      --create-missing) create_missing=true ;;
+      install) ;;
+      *) printf '%s\n' "$usage" >&2; exit 2 ;;
+    esac
+  done
+  install_all
 }
 
 main "$@"

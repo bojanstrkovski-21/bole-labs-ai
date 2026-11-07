@@ -5,9 +5,39 @@ Code, Codex, and GitHub Copilot. Built 2026-08-09 by merging `titus-ai`
 (Codex config) and `session-defaults` (Copilot config) with Claude's own
 per-project memory.
 
+## Install
+
+Keep this repository checked out at `~/.agents`: installed links point into it,
+so a `git pull` updates every linked skill and instruction file immediately.
+
+```bash
+git clone https://github.com/bojanstrkovski-21/bole-labs-ai.git ~/.agents
+cd ~/.agents
+./scripts/validate.sh        # optional: checks skills, TOML, shell, and the installer
+./install.sh --dry-run       # preview the links it would create
+./install.sh
+```
+
+- Run `install.sh` from `~/.agents`, not from another checkout. It treats the
+  folder it lives in as the source and would repoint existing links there.
+- Claude Code: links `~/.claude/CLAUDE.md` and every skill into
+  `~/.claude/skills/`.
+- Grok, Gemini, Copilot: skills are linked into each tool's skills directory
+  when that tool's config directory exists. Add `--create-missing` to also
+  create the directory and links for tools that are not installed yet
+  (`./install.sh --create-missing`; combine with `--dry-run` to preview).
+- Codex: instructions, rules, and profiles are linked once `~/.codex` exists;
+  `config.toml` is copied only when absent and never overwritten. Codex reads
+  skills from `~/.agents/skills` directly.
+- Rerunning is safe: correct links are skipped, and anything in the way is
+  moved to `~/.claude/backups/agents-install-*` first.
+
+After pulling updates, rerun `./install.sh` only when new skills or supported
+tools were added; existing links already see the new file contents.
+
 ## Layout
 
-- `skills/<name>/SKILL.md` — 14 reusable skills, agent-agnostic. This is
+- `skills/<name>/SKILL.md` — 19 reusable skills, agent-agnostic. This is
   already Codex's native `AGENTS_HOME/skills` path; Claude reaches it via a
   per-skill symlink into `~/.claude/skills/`.
 - `memory/` — global fact pool, shared across every project (not per-repo).
@@ -30,6 +60,10 @@ per-project memory.
 - `install.sh` — idempotent installer (same backup-then-symlink pattern as
   titus-ai's) plus a `new-project` bootstrap command that also fills in and
   copies `set-git-cred.sh`/`push.sh`.
+- `install.sh` flags: `--dry-run` previews; `--create-missing` also creates the
+  config dir and skills links for skills-only tools that are not installed yet
+  (Grok, Gemini, Copilot; Codex is never created this way). Supported tools are
+  listed in `SKILLS_ONLY_TOOLS` at the top of the script.
 - `set-git-cred.sh`, `push.sh` — this repo's own filled-in copies
   (`project=bole-labs-ai`), for the user to run themselves. Not run by
   Claude/Codex/Copilot — see the git-authentication rule below.

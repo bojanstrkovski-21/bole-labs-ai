@@ -60,6 +60,28 @@ run_install >/dev/null
 [[ -f "$tmp_home/.codex/config.toml" && ! -L "$tmp_home/.codex/config.toml" ]] ||
   fail "Codex config.toml was not seeded as a regular file"
 
+# 6. --create-missing: dry run creates nothing; a real run creates the skills-only
+#    tools' dirs and links but never Codex.
+fresh="$(mktemp -d)"
+trap 'rm -rf "$tmp_home" "$fresh"' EXIT
+mkdir -p "$fresh/.claude"
+HOME="$fresh" "$repo_root/install.sh" >/dev/null
+[[ ! -e "$fresh/.grok" && ! -e "$fresh/.gemini" && ! -e "$fresh/.copilot" ]] ||
+  fail "skills-only tool dirs were created without --create-missing"
+HOME="$fresh" "$repo_root/install.sh" --dry-run --create-missing >/dev/null
+[[ ! -e "$fresh/.grok" ]] || fail "dry run with --create-missing created files"
+HOME="$fresh" "$repo_root/install.sh" --create-missing >/dev/null
+for tool in .grok .gemini .copilot; do
+  for skill_dir in "$repo_root"/skills/*/; do
+    name="$(basename "$skill_dir")"
+    [[ "$(readlink -f "$fresh/$tool/skills/$name")" == "${skill_dir%/}" ]] ||
+      fail "$tool skill not linked with --create-missing: $name"
+  done
+done
+[[ ! -e "$fresh/.codex" ]] || fail "--create-missing created ~/.codex"
+HOME="$fresh" "$repo_root/install.sh" new-project >/dev/null 2>&1 && fail "new-project without a name should fail"
+HOME="$fresh" "$repo_root/install.sh" --bogus >/dev/null 2>&1 && fail "unknown flag should fail"
+
 if [[ $errors -gt 0 ]]; then
   printf 'install test failed with %d error(s)\n' "$errors" >&2
   exit 1
