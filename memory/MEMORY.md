@@ -38,6 +38,7 @@ Shared across all projects/tools (Claude, Codex, Copilot). One file per fact.
 - [project-db-path.md](project-db-path.md) — DB_PATH must be absolute — relative path caused a silent wrong-database bug
 - [project_doom_vs_spacemacs.md](project_doom_vs_spacemacs.md) — Repo purpose/status for archboki-doom-emacs-project (Doom vs Spacemacs comparison)
 - [project_dwm-quickshell.md](project_dwm-quickshell.md) — dwm-quickshell — parent dir wrapping a ChrisTitusTech dwm fork + Quickshell shell layer
+- [project_boki-webapps.md](project_boki-webapps.md) — Boki-WebApps — Go GTK 4 web-app manager; theme CSS in ~/.config, icons in ~/.local/share
 - [project_vm_staged_script_install.md](project_vm_staged_script_install.md) — dwm-quickshell VM deploy: 3 copies must stay in sync or a rebuild reverts it
 - [project_dwm_quickshell_wifi_radio_manual_only.md](project_dwm_quickshell_wifi_radio_manual_only.md) — dwm-quickshell Wi-Fi radio is manual-only
 - [project_dwm_quickshell_editors_theming_phase.md](project_dwm_quickshell_editors_theming_phase.md) — Phase 3 editor theming done: VSCode/Zed/Sublime/Geany/Xed/Kate
@@ -121,7 +122,8 @@ Shared across all projects/tools (Claude, Codex, Copilot). One file per fact.
 - [reference_dock_icon_from_window_class_not_icon_name.md](reference_dock_icon_from_window_class_not_icon_name.md) — Dock icon from window class is blank for web apps; use the .desktop Icon=; shared-list grids must rescan on open
 - [reference_inotifywait_monitor_debounce_in_consumer.md](reference_inotifywait_monitor_debounce_in_consumer.md) — Watch dirs with one inotifywait -m and debounce in the consumer; add a path+mtime cache so rescans are cheap
 - [reference_xdg_portal_gtk_has_no_pickcolor_gcolor3_patched.md](reference_xdg_portal_gtk_has_no_pickcolor_gcolor3_patched.md) — xdg-desktop-portal-gtk has no PickColor; Arch gcolor3 works via a patched X11 grab fallback; check distro patches when source and behaviour disagree
-- [feedback_write_global_memory_automatically.md](feedback_write_global_memory_automatically.md) — Write global memory + project docs at end-session on your own; never ask first (git stays forbidden)
+- [feedback_write_global_memory_automatically.md](feedback_write_global_memory_automatically.md) — If a fact belongs in global memory, write it; do not ask whether to sync (git stays forbidden)
+- [feedback_mit_for_original_reimplementation.md](feedback_mit_for_original_reimplementation.md) — Original reimplementation of a GPL app's behavior can be MIT; do not copy that source into the MIT tree
 - [reference_quickshell_children_inherit_sigchld_ignored.md](reference_quickshell_children_inherit_sigchld_ignored.md) — Quickshell children inherit SIGCHLD ignored, so paru fails with ECHILD; use env --default-signal=CHLD
 - [reference_screen_recording_default_output_silent_on_other_sink.md](reference_screen_recording_default_output_silent_on_other_sink.md) — Recording default_output is silent when sound plays on another sink; hidden-tag windows record fine
 - [reference_set_e_exit_code_capture_needs_or.md](reference_set_e_exit_code_capture_needs_or.md) — Under set -e `cmd; rc=$?` exits first; use `cmd || rc=$?`
