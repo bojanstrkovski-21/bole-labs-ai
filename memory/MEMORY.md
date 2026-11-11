@@ -39,6 +39,7 @@ Shared across all projects/tools (Claude, Codex, Copilot). One file per fact.
 - [project_doom_vs_spacemacs.md](project_doom_vs_spacemacs.md) — Repo purpose/status for archboki-doom-emacs-project (Doom vs Spacemacs comparison)
 - [project_dwm-quickshell.md](project_dwm-quickshell.md) — dwm-quickshell — parent dir wrapping a ChrisTitusTech dwm fork + Quickshell shell layer
 - [project_boki-webapps.md](project_boki-webapps.md) — Boki-WebApps — Go GTK 4 web-app manager; theme CSS in ~/.config, icons in ~/.local/share
+- [project-butterview.md](project-butterview.md) — butterview — Zig 0.16 SDL3 viewer; Arch PKGBUILD in build/; user pushes the GitHub remote
 - [project_vm_staged_script_install.md](project_vm_staged_script_install.md) — dwm-quickshell VM deploy: 3 copies must stay in sync or a rebuild reverts it
 - [project_dwm_quickshell_wifi_radio_manual_only.md](project_dwm_quickshell_wifi_radio_manual_only.md) — dwm-quickshell Wi-Fi radio is manual-only
 - [project_dwm_quickshell_editors_theming_phase.md](project_dwm_quickshell_editors_theming_phase.md) — Phase 3 editor theming done: VSCode/Zed/Sublime/Geany/Xed/Kate
@@ -84,6 +85,7 @@ Shared across all projects/tools (Claude, Codex, Copilot). One file per fact.
 - [reference_hover_handler_privileged_action.md](reference_hover_handler_privileged_action.md) — A passive hover handler triggering a privileged action can pop an auth prompt
 - [reference_noclobber_seed_rename_migration_gap.md](reference_noclobber_seed_rename_migration_gap.md) — "Seed only if missing" leaves stale content when the deploy path is renamed
 - [reference_project-templates.md](reference_project-templates.md) — Where the user's project-bootstrap conventions/templates live (links.txt precedent repos)
+- [reference_pull_request_sections.md](reference_pull_request_sections.md) — Checklist for working one item in a to-do file
 - [reference_qml_child_id_not_root_property.md](reference_qml_child_id_not_root_property.md) — A QML child's id isn't a property of its root (root.childId is undefined)
 - [reference_qml_content_embedding_loses_implicit_load_trigger.md](reference_qml_content_embedding_loses_implicit_load_trigger.md) — Extracting a popup into *Content.qml drops open()'s implicit refresh
 - [reference_qml_keys_beforeitem_blocks_bubbling.md](reference_qml_keys_beforeitem_blocks_bubbling.md) — A 2nd ancestor Keys.onPressed can break nav via Keys.priority: BeforeItem

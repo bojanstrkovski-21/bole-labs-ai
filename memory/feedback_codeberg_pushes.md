@@ -36,6 +36,14 @@ push themselves, trust their report; don't try to verify via `git fetch`
 since it may fail on auth in this sandbox (not a sign the push didn't
 happen).
 
+**Reconfirmed 2026-11-11 on butterview-arch:** the user said they are always
+the one who pushes, because the password and SSH key are set in their own
+terminal. Do not run `./push.sh` or `git push` from this session, even after
+they say "lets push". Prepare the commit and the scripts, then tell them to
+run `./push.sh` themselves. When they say they pushed, trust that. Do not
+check with `git ls-remote` or `git fetch`; both fail here for lack of their
+key, which is not evidence the push failed.
+
 **Standing rule (explicit, 2026-07-12; reconfirmed 2026-08-09 across a
 different project and a different host):** never run git push, and don't
 reach for credential/auth setup commands (`gh auth`, credential helpers,
